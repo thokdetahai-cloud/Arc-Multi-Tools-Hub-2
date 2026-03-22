@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Favicon Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Generate a simple favicon from text or emoji. Download as PNG for your website. Free, instant."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🖼</div>
+  <h1>Favicon Generator</h1>
+  <p>Generate a simple favicon from text or emoji. Download as PNG for your website. Free, instant.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Favicon Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🖼 Favicon Generator</h2>
+      
+<div class="t-row"><label>Text / Emoji</label><input type="text" id="fg-text" value="🚀" maxlength="4" oninput="genFavicon()" style="font-size:1.5rem;text-align:center"/></div>
+<div class="t-row"><label>Background</label><input type="color" id="fg-bg" value="#080f1a" oninput="genFavicon()" style="width:50px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px"/></div>
+<div class="t-row"><label>Text Color</label><input type="color" id="fg-color" value="#00d4ff" oninput="genFavicon()" style="width:50px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px"/></div>
+<div class="t-row"><label>Font Size</label><input type="range" id="fg-size" min="10" max="56" value="36" oninput="genFavicon()"/><span id="fg-sv">36px</span></div>
+<div class="t-row"><label>Border Radius</label><input type="range" id="fg-radius" min="0" max="64" value="12" oninput="genFavicon()"/><span id="fg-rv">12px</span></div>
+<div style="display:flex;gap:1.5rem;align-items:center;margin-top:1rem;flex-wrap:wrap">
+  <div>
+    <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">16×16</div>
+    <canvas id="fg-16" width="16" height="16" style="border:1px solid var(--border);border-radius:3px;image-rendering:pixelated"></canvas>
+  </div>
+  <div>
+    <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">32×32</div>
+    <canvas id="fg-32" width="32" height="32" style="border:1px solid var(--border);border-radius:4px"></canvas>
+  </div>
+  <div>
+    <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">64×64</div>
+    <canvas id="fg-64" width="64" height="64" style="border:1px solid var(--border);border-radius:6px"></canvas>
+  </div>
+  <div>
+    <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">Preview (32px scaled)</div>
+    <canvas id="fg-preview" width="32" height="32" style="width:64px;height:64px;border:1px solid var(--border);border-radius:6px"></canvas>
+  </div>
+</div>
+<div class="t-btns" style="margin-top:1rem">
+  <button class="btn" onclick="dlFavicon(16)">⬇ Download 16px</button>
+  <button class="btn btn-outline" onclick="dlFavicon(32)">⬇ Download 32px</button>
+  <button class="btn btn-outline" onclick="dlFavicon(64)">⬇ Download 64px</button>
+</div>
+<script>
+function drawOn(canvas,text,bg,color,fs,radius){
+  const s=canvas.width;const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,s,s);
+  ctx.fillStyle=bg;
+  if(radius>0){ctx.beginPath();ctx.moveTo(radius,0);ctx.lineTo(s-radius,0);ctx.quadraticCurveTo(s,0,s,radius);ctx.lineTo(s,s-radius);ctx.quadraticCurveTo(s,s,s-radius,s);ctx.lineTo(radius,s);ctx.quadraticCurveTo(0,s,0,s-radius);ctx.lineTo(0,radius);ctx.quadraticCurveTo(0,0,radius,0);ctx.closePath();ctx.fill();}
+  else ctx.fillRect(0,0,s,s);
+  ctx.font=`${Math.round(fs*(s/64))}px Arial`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.fillText(text,s/2,s/2);
+}
+function genFavicon(){
+  const text=document.getElementById('fg-text').value||'F';
+  const bg=document.getElementById('fg-bg').value;
+  const color=document.getElementById('fg-color').value;
+  const fs=+document.getElementById('fg-size').value;
+  const radius=+document.getElementById('fg-radius').value;
+  document.getElementById('fg-sv').textContent=fs+'px';document.getElementById('fg-rv').textContent=radius+'px';
+  [16,32,64].forEach(s=>drawOn(document.getElementById('fg-'+s),text,bg,color,fs,radius*(s/64)));
+  drawOn(document.getElementById('fg-preview'),text,bg,color,fs,radius*0.5);
+}
+function dlFavicon(size){
+  const a=document.createElement('a');a.href=document.getElementById('fg-'+size).toDataURL('image/png');a.download='favicon-'+size+'x'+size+'.png';a.click();
+}
+genFavicon();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Favicon Generator</h2>
+      <p>The <strong>Favicon Generator</strong> creates simple favicons from text, letters, or emojis. Choose background color, text color, font size, and corner radius. Preview at 16×16, 32×32, and 64×64 sizes — the sizes actually used by browsers. Download as PNG and reference it in your HTML with <code>&lt;link rel='icon' href='favicon.png'&gt;</code>.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">What size should a favicon be?</button>
+        <div class="faq-a"><p>Browsers use 16×16 for tabs, 32×32 for taskbars, and 180×180 for iOS home screen icons. Most modern browsers also accept SVG favicons. Generate all three sizes for full coverage.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How do I add the favicon to my website?</button>
+        <div class="faq-a"><p>Place the PNG in your root directory and add: <link rel='icon' type='image/png' href='/favicon.png'> in your HTML <head>.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Design Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

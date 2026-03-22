@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Habit Tracker — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Track daily habits with streaks. Add habits and mark them done each day. Saves in your browser."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">📊</div>
+  <h1>Habit Tracker</h1>
+  <p>Track daily habits with streaks. Add habits and mark them done each day. Saves in your browser.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Habit Tracker</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>📊 Habit Tracker</h2>
+      
+<div style="display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap">
+  <input class="t-input" id="ht-in" placeholder="New habit name..." style="margin:0;flex:1" onkeydown="if(event.key==='Enter')addHabit()"/>
+  <input type="color" id="ht-color" value="#00d4ff" title="Color" style="width:44px;height:44px;border-radius:.65rem;border:1.5px solid var(--border);padding:2px;background:var(--bg);cursor:pointer"/>
+  <button class="btn" onclick="addHabit()">Add Habit</button>
+</div>
+<div id="ht-list"></div>
+<div id="ht-empty" style="text-align:center;color:var(--text-muted);padding:2rem;display:none">No habits yet. Add your first habit above!</div>
+<script>
+const KEY='arc-habits',today=new Date().toISOString().split('T')[0];
+let habits=[];
+function save(){localStorage.setItem(KEY,JSON.stringify(habits));}
+function load(){try{habits=JSON.parse(localStorage.getItem(KEY)||'[]');}catch{habits=[];}render();}
+function addHabit(){
+  const name=document.getElementById('ht-in').value.trim();
+  if(!name) return;
+  habits.push({id:Date.now(),name,color:document.getElementById('ht-color').value,completions:[],streak:0});
+  document.getElementById('ht-in').value='';
+  save();render();
+}
+function toggle(id){
+  const h=habits.find(x=>x.id===id);
+  if(!h) return;
+  const idx=h.completions.indexOf(today);
+  if(idx>=0) h.completions.splice(idx,1); else h.completions.push(today);
+  // Calculate streak
+  let streak=0,d=new Date();
+  while(true){const ds=d.toISOString().split('T')[0];if(h.completions.includes(ds)){streak++;d.setDate(d.getDate()-1);}else break;}
+  h.streak=streak;
+  save();render();
+}
+function delHabit(id){if(confirm('Delete this habit?')){habits=habits.filter(x=>x.id!==id);save();render();}}
+function render(){
+  const list=document.getElementById('ht-list');
+  document.getElementById('ht-empty').style.display=habits.length?'none':'block';
+  list.innerHTML=habits.map(h=>{
+    const done=h.completions.includes(today);
+    const last7=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return d.toISOString().split('T')[0];});
+    const dots=last7.map(d=>`<div style="width:22px;height:22px;border-radius:4px;background:${h.completions.includes(d)?h.color:'var(--border)'};title="${d}"></div>`).join('');
+    return `<div style="padding:1rem;border-radius:.875rem;border:1.5px solid ${done?h.color:'var(--border)'};margin-bottom:.75rem;background:${done?h.color+'11':'transparent'}">
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+        <div style="width:12px;height:12px;border-radius:50%;background:${h.color};flex-shrink:0"></div>
+        <span style="flex:1;font-weight:600">${h.name}</span>
+        <span style="font-size:.85rem;color:${h.streak>0?h.color:'var(--text-muted)'}">🔥 ${h.streak} day streak</span>
+        <button onclick="toggle(${h.id})" style="padding:.4rem 1rem;border-radius:.65rem;border:1.5px solid ${h.color};background:${done?h.color:'transparent'};color:${done?'#000':h.color};cursor:pointer;font-size:.85rem;font-weight:600">${done?'✓ Done':'Mark Done'}</button>
+        <button onclick="delHabit(${h.id})" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:1.1rem">×</button>
+      </div>
+      <div style="display:flex;gap:4px">${dots}</div>
+    </div>`;
+  }).join('');
+}
+load();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Habit Tracker</h2>
+      <p>The <strong>Habit Tracker</strong> lets you add daily habits, mark them done, and track your streaks over time. The last 7 days are visualized as colored dots, and your current streak is displayed prominently. All data is saved in your browser's localStorage — no account required.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">How are streaks calculated?</button>
+        <div class="faq-a"><p>A streak counts consecutive days you've marked the habit done. If you miss a day, the streak resets to the current run.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I track multiple habits?</button>
+        <div class="faq-a"><p>Yes — add as many habits as you want, each with a custom color. Each habit tracks independently.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Productivity Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

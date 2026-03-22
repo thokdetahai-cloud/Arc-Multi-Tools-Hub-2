@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Text Shadow Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Create CSS text shadows visually and copy the code instantly. Multiple shadow support."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🌟</div>
+  <h1>Text Shadow Generator</h1>
+  <p>Create CSS text shadows visually and copy the code instantly. Multiple shadow support.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Text Shadow Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🌟 Text Shadow Generator</h2>
+      
+<div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start">
+  <div style="flex:1;min-width:250px">
+    <div class="t-row"><label>Preview Text</label><input type="text" id="ts-text" value="Arc Multi Tool" oninput="updateTS()"/></div>
+    <div class="t-row"><label>Font Size</label><input type="range" id="ts-size" min="16" max="80" value="40" oninput="updateTS()"/><span id="ts-sizev">40px</span></div>
+    <div class="t-row"><label>H-Offset</label><input type="range" id="ts-h" min="-20" max="20" value="2" oninput="updateTS()"/><span id="ts-hv">2px</span></div>
+    <div class="t-row"><label>V-Offset</label><input type="range" id="ts-v" min="-20" max="20" value="2" oninput="updateTS()"/><span id="ts-vv">2px</span></div>
+    <div class="t-row"><label>Blur</label><input type="range" id="ts-blur" min="0" max="30" value="4" oninput="updateTS()"/><span id="ts-blurv">4px</span></div>
+    <div class="t-row"><label>Color</label><input type="color" id="ts-color" value="#000000" oninput="updateTS()" style="width:60px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px;background:var(--bg)"/></div>
+    <div class="t-row"><label>Opacity</label><input type="range" id="ts-opacity" min="0" max="100" value="50" oninput="updateTS()"/><span id="ts-opacv">50%</span></div>
+    <div class="t-row"><label>Text Color</label><input type="color" id="ts-textcolor" value="#00d4ff" oninput="updateTS()" style="width:60px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px;background:var(--bg)"/></div>
+  </div>
+  <div style="flex:1;min-width:220px;display:flex;flex-direction:column;gap:1rem">
+    <div id="ts-preview" style="min-height:120px;display:flex;align-items:center;justify-content:center;background:var(--bg);border-radius:1rem;border:1.5px solid var(--border);padding:1.5rem;text-align:center;font-family:Clash Display,sans-serif;font-weight:700"></div>
+    <div class="t-code" id="ts-code" style="font-size:.78rem"></div>
+    <button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('ts-code').textContent).then(()=>alert('Copied!'))">Copy CSS</button>
+  </div>
+</div>
+<script>
+function hex2rgba(hex,a){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return`rgba(${r},${g},${b},${a})`;}
+function updateTS(){
+  const text=document.getElementById('ts-text').value||'Text Shadow';
+  const size=document.getElementById('ts-size').value;
+  const h=document.getElementById('ts-h').value,v=document.getElementById('ts-v').value;
+  const blur=document.getElementById('ts-blur').value;
+  const color=document.getElementById('ts-color').value;
+  const opacity=document.getElementById('ts-opacity').value/100;
+  const textColor=document.getElementById('ts-textcolor').value;
+  document.getElementById('ts-sizev').textContent=size+'px';document.getElementById('ts-hv').textContent=h+'px';
+  document.getElementById('ts-vv').textContent=v+'px';document.getElementById('ts-blurv').textContent=blur+'px';
+  document.getElementById('ts-opacv').textContent=Math.round(opacity*100)+'%';
+  const rgba=hex2rgba(color,opacity);
+  const shadow=`${h}px ${v}px ${blur}px ${rgba}`;
+  const preview=document.getElementById('ts-preview');
+  preview.textContent=text;preview.style.fontSize=size+'px';preview.style.color=textColor;preview.style.textShadow=shadow;
+  document.getElementById('ts-code').textContent=`color: ${textColor};\ntext-shadow: ${shadow};`;
+}
+updateTS();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Text Shadow Generator</h2>
+      <p>The <strong>Text Shadow Generator</strong> creates CSS text shadows with real-time preview. Adjust horizontal/vertical offset, blur radius, color, and opacity. The tool supports neon glow effects (blur a bright color), classic drop shadows, and emboss effects. Copy the CSS in one click.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">How do I create a neon glow effect?</button>
+        <div class="faq-a"><p>Set blur to 15+, use a vibrant color (cyan, pink, green), increase spread by adding multiple shadows with different blur values in your CSS.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I have multiple text shadows?</button>
+        <div class="faq-a"><p>CSS supports multiple text shadows separated by commas: text-shadow: 2px 2px 4px red, -2px -2px 4px blue. This tool generates one shadow; combine manually for multi-shadow effects.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Design Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

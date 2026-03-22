@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Border Radius Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Generate CSS border-radius values visually. Create rounded corners, pills, and organic shapes."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">⬛</div>
+  <h1>Border Radius Generator</h1>
+  <p>Generate CSS border-radius values visually. Create rounded corners, pills, and organic shapes.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Border Radius Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>⬛ Border Radius Generator</h2>
+      
+<div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start">
+  <div style="flex:1;min-width:250px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem">
+      <div>
+        <label style="font-size:.8rem;color:var(--text-muted)">Top Left</label>
+        <input type="range" id="br-tl" min="0" max="100" value="12" oninput="updateBR()"/>
+        <span id="br-tlv">12px</span>
+      </div>
+      <div>
+        <label style="font-size:.8rem;color:var(--text-muted)">Top Right</label>
+        <input type="range" id="br-tr" min="0" max="100" value="12" oninput="updateBR()"/>
+        <span id="br-trv">12px</span>
+      </div>
+      <div>
+        <label style="font-size:.8rem;color:var(--text-muted)">Bottom Left</label>
+        <input type="range" id="br-bl" min="0" max="100" value="12" oninput="updateBR()"/>
+        <span id="br-blv">12px</span>
+      </div>
+      <div>
+        <label style="font-size:.8rem;color:var(--text-muted)">Bottom Right</label>
+        <input type="range" id="br-br" min="0" max="100" value="12" oninput="updateBR()"/>
+        <span id="br-brv">12px</span>
+      </div>
+    </div>
+    <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.85rem;margin-bottom:1rem">
+      <input type="checkbox" id="br-lock" style="accent-color:var(--accent)" onchange="updateBR()"/> Lock all corners
+    </label>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem">
+      <button class="btn btn-outline" style="font-size:.8rem" onclick="preset(0,0,0,0)">Square</button>
+      <button class="btn btn-outline" style="font-size:.8rem" onclick="preset(8,8,8,8)">Rounded</button>
+      <button class="btn btn-outline" style="font-size:.8rem" onclick="preset(50,50,50,50)">Pill</button>
+      <button class="btn btn-outline" style="font-size:.8rem" onclick="preset(50,0,50,0)">Leaf</button>
+      <button class="btn btn-outline" style="font-size:.8rem" onclick="preset(0,50,0,50)">Leaf 2</button>
+    </div>
+  </div>
+  <div style="flex:0 0 200px;display:flex;flex-direction:column;align-items:center;gap:1rem">
+    <div id="br-preview" style="width:160px;height:160px;background:linear-gradient(135deg,var(--accent),var(--accent2));transition:border-radius .3s"></div>
+    <div class="t-code" id="br-code" style="font-size:.78rem;width:100%"></div>
+    <button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('br-code').textContent).then(()=>alert('Copied!'))">Copy CSS</button>
+  </div>
+</div>
+<script>
+function preset(tl,tr,bl,br){
+  ['tl','tr','bl','br'].forEach((id,i)=>{document.getElementById('br-'+id).value=[tl,tr,bl,br][i];});
+  updateBR();
+}
+function updateBR(){
+  const lock=document.getElementById('br-lock').checked;
+  const tl=document.getElementById('br-tl').value;
+  if(lock){['tr','bl','br'].forEach(id=>{document.getElementById('br-'+id).value=tl;});}
+  const vals=['tl','tr','bl','br'].map(id=>document.getElementById('br-'+id).value);
+  vals.forEach((v,i)=>{document.getElementById('br-'+['tl','tr','bl','br'][i]+'v').textContent=v+'px';});
+  const css=vals.every(v=>v===vals[0])?`border-radius: ${vals[0]}px;`:`border-radius: ${vals[0]}px ${vals[1]}px ${vals[3]}px ${vals[2]}px;`;
+  document.getElementById('br-preview').style.borderRadius=`${vals[0]}px ${vals[1]}px ${vals[3]}px ${vals[2]}px`;
+  document.getElementById('br-code').textContent=css;
+}
+updateBR();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Border Radius Generator</h2>
+      <p>The <strong>Border Radius Generator</strong> lets you control each corner of a CSS element independently or lock them all together. Use presets for common shapes like Square, Rounded, Pill, and Leaf. The live preview shows exactly how the element will look. CSS order is: top-left, top-right, bottom-right, bottom-left.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">What's the CSS border-radius corner order?</button>
+        <div class="faq-a"><p>CSS border-radius follows: top-left, top-right, bottom-right, bottom-left (clockwise from top-left). Shorthand with 2 values: top-left/bottom-right, top-right/bottom-left.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What's a percentage value in border-radius?</button>
+        <div class="faq-a"><p>Using 50% creates a circle (for square elements) or ellipse. Values are relative to the element's dimensions, making percentage radius responsive.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Design Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

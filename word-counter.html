@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Word Counter — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Free online word counter — count words, characters, sentences, paragraphs and reading time instantly. No login required."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>"/>
+  <style>
+    .wc-area { width:100%; min-height:220px; padding:1rem; border-radius:.875rem; border:1.5px solid var(--border); background:var(--bg); color:var(--text); font-size:1rem; line-height:1.7; resize:vertical; font-family:'DM Sans',sans-serif; transition:border-color .2s; }
+    .wc-area:focus { outline:none; border-color:var(--accent); }
+    .wc-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1rem; margin-top:1.25rem; }
+    .wc-stat { background:var(--bg); border:1.5px solid var(--border); border-radius:.875rem; padding:1rem; text-align:center; }
+    .wc-stat__num { font-size:1.75rem; font-weight:700; color:var(--accent); }
+    .wc-stat__label { font-size:.75rem; color:var(--text-muted); margin-top:.2rem; }
+    .wc-actions { display:flex; gap:.75rem; margin-top:1rem; flex-wrap:wrap; }
+    .wc-actions .btn { flex:1; min-width:120px; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc‑<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+      <a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">📝</div>
+  <h1>Word Counter</h1>
+  <p>Count words, characters, sentences, paragraphs, and reading time — live as you type.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span><a href="../index.html#tools">Tools</a><span>›</span><span>Word Counter</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>📝 Word Counter</h2>
+      <textarea class="wc-area" id="txt" placeholder="Start typing or paste your text here..." oninput="count()"></textarea>
+      <div class="wc-stats">
+        <div class="wc-stat"><div class="wc-stat__num" id="s-words">0</div><div class="wc-stat__label">Words</div></div>
+        <div class="wc-stat"><div class="wc-stat__num" id="s-chars">0</div><div class="wc-stat__label">Characters</div></div>
+        <div class="wc-stat"><div class="wc-stat__num" id="s-nospace">0</div><div class="wc-stat__label">No Spaces</div></div>
+        <div class="wc-stat"><div class="wc-stat__num" id="s-sent">0</div><div class="wc-stat__label">Sentences</div></div>
+        <div class="wc-stat"><div class="wc-stat__num" id="s-para">0</div><div class="wc-stat__label">Paragraphs</div></div>
+        <div class="wc-stat"><div class="wc-stat__num" id="s-read">0</div><div class="wc-stat__label">Read (min)</div></div>
+      </div>
+      <div class="wc-actions">
+        <button class="btn btn-outline" onclick="document.getElementById('txt').value='';count()">Clear</button>
+        <button class="btn btn-outline" onclick="copyText()">Copy Text</button>
+      </div>
+    </div>
+
+    <div class="tool-seo">
+      <h2>About the Word Counter</h2>
+      <p>The <strong>Arc-Multi Tool Word Counter</strong> provides real-time statistics as you type. It's ideal for writers, students, bloggers, and anyone who needs to meet a word or character limit — think essays, social media posts, SEO content, or academic papers.</p>
+      <p>The tool counts <strong>words, characters (with and without spaces), sentences, paragraphs</strong>, and even estimates your <strong>reading time</strong> based on an average reading speed of 200 words per minute. All processing happens locally in your browser — nothing is sent to any server.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <button class="faq-q">How does the word count work?</button>
+        <div class="faq-a"><p>Words are counted by splitting text on whitespace and filtering empty tokens. Sentences use punctuation (. ! ?) as delimiters, and paragraphs count non-empty line breaks.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is my text saved or stored?</button>
+        <div class="faq-a"><p>No. All processing is done in your browser. Your text is never sent to a server or stored anywhere.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc‑<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools.</p></div>
+    <div class="footer__col"><h4>Categories</h4><a href="../index.html#tools">Text Tools</a><a href="../index.html#tools">Calculator Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+<script>
+  function count() {
+    const t = document.getElementById('txt').value;
+    const words = t.trim() === '' ? 0 : t.trim().split(/\s+/).length;
+    const chars = t.length;
+    const nospace = t.replace(/\s/g,'').length;
+    const sent = t.trim() === '' ? 0 : (t.match(/[.!?]+/g)||[]).length;
+    const para = t.trim() === '' ? 0 : t.split(/\n+/).filter(p=>p.trim()).length;
+    const read = Math.ceil(words/200);
+    document.getElementById('s-words').textContent = words.toLocaleString();
+    document.getElementById('s-chars').textContent = chars.toLocaleString();
+    document.getElementById('s-nospace').textContent = nospace.toLocaleString();
+    document.getElementById('s-sent').textContent = sent.toLocaleString();
+    document.getElementById('s-para').textContent = para.toLocaleString();
+    document.getElementById('s-read').textContent = read;
+  }
+  function copyText() {
+    const t = document.getElementById('txt').value;
+    if (!t) return;
+    navigator.clipboard.writeText(t).then(()=>alert('Text copied!'));
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Daily Goal Tracker — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Set and track daily goals with progress bars. Reset each day. Saves in your browser."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🎯</div>
+  <h1>Daily Goal Tracker</h1>
+  <p>Set and track daily goals with progress bars. Reset each day. Saves in your browser.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Daily Goal Tracker</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🎯 Daily Goal Tracker</h2>
+      
+<div style="display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap">
+  <input class="t-input" id="dg-name" placeholder="Goal name..." style="margin:0;flex:2" onkeydown="if(event.key==='Enter')addGoal()"/>
+  <input type="number" id="dg-target" placeholder="Target" min="1" style="flex:1;min-width:80px;padding:.75rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem"/>
+  <input class="t-input" id="dg-unit" placeholder="Unit (e.g. mins)" style="margin:0;flex:1;min-width:80px"/>
+  <button class="btn" onclick="addGoal()">Add</button>
+</div>
+<div id="dg-list"></div>
+<script>
+const KEY='arc-goals-'+new Date().toISOString().split('T')[0];
+let goals=[];
+function save(){localStorage.setItem(KEY,JSON.stringify(goals));}
+function load(){try{goals=JSON.parse(localStorage.getItem(KEY)||'[]');}catch{goals=[];}render();}
+function addGoal(){
+  const name=document.getElementById('dg-name').value.trim();
+  const target=+document.getElementById('dg-target').value||1;
+  const unit=document.getElementById('dg-unit').value.trim()||'times';
+  if(!name) return;
+  goals.push({id:Date.now(),name,target,unit,progress:0});
+  document.getElementById('dg-name').value='';document.getElementById('dg-target').value='';document.getElementById('dg-unit').value='';
+  save();render();
+}
+function update(id,delta){
+  const g=goals.find(x=>x.id===id);
+  if(!g) return;
+  g.progress=Math.max(0,Math.min(g.target,g.progress+delta));
+  save();render();
+}
+function del(id){goals=goals.filter(x=>x.id!==id);save();render();}
+function render(){
+  document.getElementById('dg-list').innerHTML=goals.length?goals.map(g=>{
+    const pct=Math.round(g.progress/g.target*100);
+    const done=g.progress>=g.target;
+    return `<div style="padding:1rem;border-radius:.875rem;border:1.5px solid ${done?'var(--accent)':'var(--border)'};margin-bottom:.75rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <span style="font-weight:600">${done?'✅ ':''} ${g.name}</span>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <button onclick="update(${g.id},-1)" style="padding:.25rem .6rem;border-radius:.5rem;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer">−</button>
+          <span style="font-size:.9rem;color:var(--accent);min-width:60px;text-align:center">${g.progress}/${g.target} ${g.unit}</span>
+          <button onclick="update(${g.id},1)" style="padding:.25rem .6rem;border-radius:.5rem;border:1px solid var(--accent);background:${done?'var(--accent)':'transparent'};color:${done?'#000':'var(--accent)'};cursor:pointer">+</button>
+          <button onclick="del(${g.id})" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:1rem;padding:0 .25rem">×</button>
+        </div>
+      </div>
+      <div style="background:var(--border);border-radius:4px;height:8px;overflow:hidden">
+        <div style="height:100%;border-radius:4px;background:${done?'var(--accent)':'var(--accent)'};width:${pct}%;transition:width .3s"></div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text-muted);margin-top:.25rem">${pct}% complete</div>
+    </div>`;
+  }).join(''):'<div style="text-align:center;color:var(--text-muted);padding:2rem">No goals yet. Add your first daily goal above!</div>';
+}
+load();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Daily Goal Tracker</h2>
+      <p>The <strong>Daily Goal Tracker</strong> lets you set specific daily goals with targets and units — like '30 minutes of exercise', '8 glasses of water', or '10 pages of reading'. Track progress with + and − buttons, watch the progress bar fill up, and goals reset automatically each day. All data saved locally in your browser.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Do goals reset every day?</button>
+        <div class="faq-a"><p>Yes — goals reset automatically each day because data is keyed to the current date. Yesterday's progress is not carried over.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I set non-daily goals?</button>
+        <div class="faq-a"><p>This tool is optimized for daily habits. For longer-term tracking, use our Habit Tracker tool which shows streaks across multiple days.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Productivity Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Countdown Timer — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Free countdown timer — count down to any event, deadline, or date. Add a custom message, browser-based."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .ct-input { width:100%; padding:.875rem 1rem; border-radius:.875rem; border:1.5px solid var(--border); background:var(--bg); color:var(--text); font-size:1rem; margin-bottom:1rem; }
+    .ct-input:focus { outline:none; border-color:var(--accent); }
+    .ct-display { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin:1.5rem 0; }
+    .ct-unit { background:var(--bg); border:1.5px solid var(--border); border-radius:1rem; padding:1.25rem .5rem; text-align:center; }
+    .ct-num { font-size:3rem; font-weight:700; color:var(--accent); font-family:'Clash Display',sans-serif; }
+    .ct-label { font-size:.75rem; color:var(--text-muted); margin-top:.25rem; text-transform:uppercase; letter-spacing:.05em; }
+    .ct-done { text-align:center; padding:2rem; font-size:1.5rem; color:var(--accent); font-weight:700; display:none; }
+    @media(max-width:480px){.ct-num{font-size:2rem;} .ct-display{gap:.5rem;}}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc‑<span>multi</span> Tool</a>
+    <div class="navbar__nav"><a href="../index.html">Home</a><a href="../index.html#tools">Tools</a><a href="../about.html">About</a></div>
+    <div class="navbar__actions"><button class="theme-toggle">☀️</button><button class="hamburger"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="navbar__mobile"><a href="../index.html">Home</a><a href="../index.html#tools">Tools</a></div>
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">⏳</div>
+  <h1>Countdown Timer</h1>
+  <p>Count down to any date, event, or deadline — live in your browser.</p>
+</div>
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb"><a href="../index.html">Home</a><span>›</span><a href="../index.html#tools">Tools</a><span>›</span><span>Countdown Timer</span></div>
+    <div class="tool-workspace">
+      <h2>⏳ Countdown Timer</h2>
+      <label style="display:block;font-size:.85rem;color:var(--text-muted);margin-bottom:.35rem">Target Date & Time</label>
+      <input class="ct-input" type="datetime-local" id="target"/>
+      <label style="display:block;font-size:.85rem;color:var(--text-muted);margin-bottom:.35rem">Event Name (optional)</label>
+      <input class="ct-input" type="text" id="event-name" placeholder="e.g. New Year 2026, My Birthday..."/>
+      <button class="btn" style="width:100%" onclick="startCountdown()">Start Countdown</button>
+
+      <div class="ct-display" id="ct-disp" style="display:none">
+        <div class="ct-unit"><div class="ct-num" id="c-days">00</div><div class="ct-label">Days</div></div>
+        <div class="ct-unit"><div class="ct-num" id="c-hours">00</div><div class="ct-label">Hours</div></div>
+        <div class="ct-unit"><div class="ct-num" id="c-mins">00</div><div class="ct-label">Minutes</div></div>
+        <div class="ct-unit"><div class="ct-num" id="c-secs">00</div><div class="ct-label">Seconds</div></div>
+      </div>
+      <div class="ct-done" id="ct-done">🎉 <span id="done-label">Time's up!</span> 🎉</div>
+      <p id="ct-event" style="text-align:center;font-size:.9rem;color:var(--text-muted);margin-top:.5rem"></p>
+    </div>
+    <div class="tool-seo">
+      <h2>About the Countdown Timer</h2>
+      <p>The <strong>Arc-Multi Tool Countdown Timer</strong> lets you count down to any event — a birthday, product launch, holiday, exam, or deadline. Set your target date and time, add an optional event name, and watch the clock tick down in real time.</p>
+    </div>
+    <div class="tool-faq">
+      <h2>FAQ</h2>
+      <div class="faq-item">
+        <button class="faq-q">Does the timer work when I close the tab?</button>
+        <div class="faq-a"><p>The visual countdown requires the tab to be open. However, because it's date-based, if you reopen the page and restart the countdown to the same date, it will show the correct remaining time.</p></div>
+      </div>
+    </div>
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc‑<span>multi</span> Tool</div><p class="footer__desc">100+ free tools.</p></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+<script>
+  let interval=null;
+  function startCountdown() {
+    const t=document.getElementById('target').value;
+    if(!t) return alert('Please select a target date.');
+    const target=new Date(t);
+    const name=document.getElementById('event-name').value||'Your event';
+    if(interval) clearInterval(interval);
+    document.getElementById('ct-disp').style.display='grid';
+    document.getElementById('ct-done').style.display='none';
+    document.getElementById('ct-event').textContent='⏱ Counting down to: '+name;
+    function tick() {
+      const diff = target - new Date();
+      if(diff<=0) {
+        clearInterval(interval);
+        document.getElementById('ct-disp').style.display='none';
+        document.getElementById('ct-done').style.display='block';
+        document.getElementById('done-label').textContent=name+' — Time\'s up!';
+        document.title='🎉 Time\'s up! — Arc Timer';
+        return;
+      }
+      const days=Math.floor(diff/86400000);
+      const hours=Math.floor((diff%86400000)/3600000);
+      const mins=Math.floor((diff%3600000)/60000);
+      const secs=Math.floor((diff%60000)/1000);
+      document.getElementById('c-days').textContent=String(days).padStart(2,'0');
+      document.getElementById('c-hours').textContent=String(hours).padStart(2,'0');
+      document.getElementById('c-mins').textContent=String(mins).padStart(2,'0');
+      document.getElementById('c-secs').textContent=String(secs).padStart(2,'0');
+      document.title=`⏳ ${days}d ${hours}h ${mins}m — Arc Timer`;
+    }
+    tick();
+    interval=setInterval(tick,1000);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Fake Chat Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Create realistic-looking chat screenshots for demos, tutorials, and fun. Download as image."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">💬</div>
+  <h1>Fake Chat Generator</h1>
+  <p>Create realistic-looking chat screenshots for demos, tutorials, and fun. Download as image.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Fake Chat Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>💬 Fake Chat Generator</h2>
+      
+<div class="t-row"><label>Your Name</label><input type="text" id="fc-name1" value="Alex" oninput="renderChat()"/></div>
+<div class="t-row"><label>Friend's Name</label><input type="text" id="fc-name2" value="Jordan" oninput="renderChat()"/></div>
+<div class="t-row"><label>Theme</label>
+  <select id="fc-theme" onchange="renderChat()">
+    <option value="dark">Dark</option>
+    <option value="light">Light</option>
+    <option value="blue">Blue (iMessage style)</option>
+  </select>
+</div>
+<div style="margin-bottom:1rem">
+  <div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.5rem">Messages (format: name: message)</div>
+  <textarea class="t-textarea" id="fc-msgs" style="min-height:140px">Alex: Hey! Are you coming to the party tonight?
+Jordan: Yes! What time does it start?
+Alex: 8pm at Raj's place. Bring something to drink 🍻
+Jordan: Perfect, I'll be there! Should I invite Maya?
+Alex: Definitely! The more the merrier 🎉
+Jordan: Great, see you tonight!</textarea>
+  <button class="btn btn-outline" style="margin-top:.5rem;font-size:.85rem" onclick="renderChat()">Update Preview</button>
+</div>
+<div id="fc-preview" style="border-radius:1rem;overflow:hidden;max-width:380px;margin:0 auto 1rem;border:1.5px solid var(--border)"></div>
+<button class="btn" onclick="downloadChat()">⬇ Download Chat Screenshot</button>
+<canvas id="fc-canvas" style="display:none"></canvas>
+<script>
+const THEMES={
+  dark:{bg:'#1c1c1e',header:'#2c2c2e',bubble1:'#00d4ff',bubble2:'#3a3a3c',text1:'#000',text2:'#fff',headerText:'#fff'},
+  light:{bg:'#f2f2f7',header:'#fff',bubble1:'#007aff',bubble2:'#e9e9eb',text1:'#fff',text2:'#000',headerText:'#000'},
+  blue:{bg:'#e8f4fd',header:'#007aff',bubble1:'#007aff',bubble2:'#fff',text1:'#fff',text2:'#000',headerText:'#fff'},
+};
+function renderChat(){
+  const name1=document.getElementById('fc-name1').value||'You';
+  const name2=document.getElementById('fc-name2').value||'Friend';
+  const theme=THEMES[document.getElementById('fc-theme').value];
+  const lines=document.getElementById('fc-msgs').value.split('
+').filter(l=>l.trim());
+  let html=`<div style="background:${theme.header};padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.1)">
+    <div style="width:36px;height:36px;border-radius:50%;background:${theme.bubble1};display:flex;align-items:center;justify-content:center;color:${theme.text1};font-weight:700;font-size:.9rem">${name2[0]}</div>
+    <div><div style="font-weight:600;color:${theme.headerText};font-size:.95rem">${name2}</div><div style="font-size:.72rem;color:${theme.headerText}88">Active now</div></div>
+  </div>
+  <div style="background:${theme.bg};padding:12px;display:flex;flex-direction:column;gap:6px;min-height:200px">`;
+  for(const line of lines){
+    const colon=line.indexOf(':');if(colon<0) continue;
+    const speaker=line.slice(0,colon).trim();
+    const msg=line.slice(colon+1).trim();
+    const isMe=speaker.toLowerCase()===name1.toLowerCase();
+    html+=`<div style="display:flex;justify-content:${isMe?'flex-end':'flex-start'}">
+      <div style="max-width:70%;background:${isMe?theme.bubble1:theme.bubble2};color:${isMe?theme.text1:theme.text2};padding:8px 12px;border-radius:${isMe?'18px 18px 4px 18px':'18px 18px 18px 4px'};font-size:.88rem;line-height:1.4">${msg}</div>
+    </div>`;
+  }
+  html+=`<div style="text-align:right;padding:4px 0"><span style="background:${theme.bubble1};color:${theme.text1};border-radius:12px;padding:4px 10px;font-size:.75rem">Delivered</span></div>`;
+  html+='</div>';
+  document.getElementById('fc-preview').innerHTML=html;
+}
+function downloadChat(){
+  const el=document.getElementById('fc-preview');
+  const rect=el.getBoundingClientRect();
+  alert('To save: right-click the chat preview and select "Save image as..." or take a screenshot of the preview area.');
+}
+renderChat();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Fake Chat Generator</h2>
+      <p>The <strong>Fake Chat Generator</strong> creates realistic-looking chat message previews for demos, tutorials, presentations, or entertainment. Choose a theme (Dark, Light, or iMessage-style Blue), enter names, write conversations in the format <code>Name: message</code>, and get an instant visual preview. Right-click the preview to save as an image.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Can I make it look like WhatsApp or iMessage?</button>
+        <div class="faq-a"><p>The Blue theme resembles iMessage style, and the Dark theme resembles WhatsApp/Telegram dark mode. They're approximations, not exact replicas.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How do I save the chat image?</button>
+        <div class="faq-a"><p>Right-click on the chat preview and choose 'Save image as...' — or take a screenshot of just that area. A proper download button requires a library like html2canvas.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Fun Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

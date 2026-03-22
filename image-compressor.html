@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Image Compressor — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Compress images and reduce file size in your browser. Adjust quality and see size reduction instantly."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">📦</div>
+  <h1>Image Compressor</h1>
+  <p>Compress images and reduce file size in your browser. Adjust quality and see size reduction instantly.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Image Compressor</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>📦 Image Compressor</h2>
+      
+<div id="ic-drop" style="border:2px dashed var(--border);border-radius:1rem;padding:2.5rem;text-align:center;cursor:pointer;margin-bottom:1rem" onclick="document.getElementById('ic-file').click()" ondragover="event.preventDefault()" ondrop="icDrop(event)">
+  <div style="font-size:2.5rem">📦</div>
+  <div style="font-weight:600;margin:.5rem 0">Click or drag an image here</div>
+  <div style="font-size:.82rem;color:var(--text-muted)">JPG, PNG, or WebP</div>
+  <input type="file" id="ic-file" accept="image/*" style="display:none" onchange="icLoad(this.files[0])"/>
+</div>
+<div id="ic-controls" style="display:none">
+  <div class="t-row"><label>Quality</label><input type="range" id="ic-q" min="1" max="100" value="75" oninput="icCompress()"/><span id="ic-qv">75%</span></div>
+  <div class="t-row"><label>Format</label>
+    <select id="ic-fmt" onchange="icCompress()">
+      <option value="image/jpeg">JPEG (best compression for photos)</option>
+      <option value="image/webp">WebP (modern, great compression)</option>
+      <option value="image/png">PNG (lossless)</option>
+    </select>
+  </div>
+  <div class="t-stat-grid">
+    <div class="t-stat"><div class="t-stat__num" id="ic-orig-size">—</div><div class="t-stat__lbl">Original Size</div></div>
+    <div class="t-stat"><div class="t-stat__num" id="ic-new-size">—</div><div class="t-stat__lbl">Compressed Size</div></div>
+    <div class="t-stat"><div class="t-stat__num" id="ic-saving">—</div><div class="t-stat__lbl">Size Reduction</div></div>
+  </div>
+  <div class="t-btns" style="margin-top:1rem">
+    <button class="btn" onclick="icDownload()">⬇ Download Compressed</button>
+    <button class="btn btn-outline" onclick="icReset()">Compress Another</button>
+  </div>
+  <canvas id="ic-canvas" style="display:none"></canvas>
+</div>
+<script>
+let icImg=null,icOrigSize=0,icBlob=null;
+function icDrop(e){e.preventDefault();icLoad(e.dataTransfer.files[0]);}
+function icLoad(file){
+  if(!file) return;
+  icOrigSize=file.size;
+  icImg=new Image();
+  icImg.onload=()=>{document.getElementById('ic-controls').style.display='block';icCompress();};
+  icImg.src=URL.createObjectURL(file);
+}
+function icCompress(){
+  if(!icImg) return;
+  const q=+document.getElementById('ic-q').value/100;
+  const fmt=document.getElementById('ic-fmt').value;
+  document.getElementById('ic-qv').textContent=Math.round(q*100)+'%';
+  const c=document.getElementById('ic-canvas');
+  c.width=icImg.naturalWidth;c.height=icImg.naturalHeight;
+  c.getContext('2d').drawImage(icImg,0,0);
+  c.toBlob(blob=>{
+    icBlob=blob;
+    const fmt2=v=>(v/1024).toFixed(1)+' KB';
+    const saving=Math.round((1-blob.size/icOrigSize)*100);
+    document.getElementById('ic-orig-size').textContent=fmt2(icOrigSize);
+    document.getElementById('ic-new-size').textContent=fmt2(blob.size);
+    document.getElementById('ic-saving').textContent=(saving>0?'-':'')+Math.abs(saving)+'%';
+    document.getElementById('ic-saving').style.color=saving>0?'#22c55e':'#ef4444';
+  },fmt,q);
+}
+function icDownload(){
+  if(!icBlob) return;
+  const ext=document.getElementById('ic-fmt').value.split('/')[1];
+  const a=document.createElement('a');a.href=URL.createObjectURL(icBlob);a.download='compressed.'+ext;a.click();
+}
+function icReset(){icImg=null;icOrigSize=0;icBlob=null;document.getElementById('ic-controls').style.display='none';}
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Image Compressor</h2>
+      <p>The <strong>Image Compressor</strong> reduces image file size by adjusting JPEG/WebP quality. A quality of 75% typically reduces file size by 50–80% with minimal visible quality loss — perfect for web optimization. WebP format offers the best compression among modern formats. All processing is in-browser; no file is uploaded.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">What quality setting is best for websites?</button>
+        <div class="faq-a"><p>70–80% quality for JPEGs is the web standard — it achieves 60–80% size reduction with imperceptible quality difference to most viewers. For WebP, 75% is even more efficient.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Why might PNG files not compress much?</button>
+        <div class="faq-a"><p>PNG compression is lossless — the quality slider doesn't affect PNG output. To reduce PNG file size meaningfully, convert to WebP or JPEG instead.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Image Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

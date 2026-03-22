@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Image Resizer — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Resize images to any dimension directly in your browser. No upload to server. Free, instant."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🖼</div>
+  <h1>Image Resizer</h1>
+  <p>Resize images to any dimension directly in your browser. No upload to server. Free, instant.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Image Resizer</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🖼 Image Resizer</h2>
+      
+<div id="ir-drop" style="border:2px dashed var(--border);border-radius:1rem;padding:2.5rem;text-align:center;cursor:pointer;margin-bottom:1rem;transition:.2s" onclick="document.getElementById('ir-file').click()" ondragover="event.preventDefault();this.style.borderColor='var(--accent)'" ondragleave="this.style.borderColor='var(--border)'" ondrop="handleDrop(event)">
+  <div style="font-size:2.5rem;margin-bottom:.5rem">🖼</div>
+  <div style="font-weight:600">Click or drag an image here</div>
+  <div style="font-size:.82rem;color:var(--text-muted);margin-top:.25rem">Supports JPG, PNG, WebP, GIF</div>
+  <input type="file" id="ir-file" accept="image/*" style="display:none" onchange="loadImage(this.files[0])"/>
+</div>
+<div id="ir-controls" style="display:none">
+  <div class="t-row"><label>Width (px)</label><input type="number" id="ir-w" oninput="updateH()"/></div>
+  <div class="t-row"><label>Height (px)</label><input type="number" id="ir-h" oninput="updateW()"/></div>
+  <div class="t-row"><label>Quality (%)</label><input type="range" id="ir-q" min="1" max="100" value="90" oninput="document.getElementById('ir-qv').textContent=this.value+'%'"/><span id="ir-qv">90%</span></div>
+  <div class="t-row"><label style="display:flex;align-items:center;gap:.5rem;cursor:pointer">
+    <input type="checkbox" id="ir-lock" checked style="accent-color:var(--accent)"/> Lock aspect ratio
+  </label></div>
+  <div class="t-row"><label>Format</label>
+    <select id="ir-fmt"><option value="image/jpeg">JPEG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select>
+  </div>
+  <div class="t-btns">
+    <button class="btn" onclick="resizeImage()">Resize & Download</button>
+    <button class="btn btn-outline" onclick="resetTool()">Reset</button>
+  </div>
+  <canvas id="ir-canvas" style="display:none"></canvas>
+  <div id="ir-info" style="font-size:.8rem;color:var(--text-muted);margin-top:.75rem"></div>
+</div>
+<script>
+let origW=0,origH=0,img=null;
+function handleDrop(e){e.preventDefault();e.currentTarget.style.borderColor='var(--border)';loadImage(e.dataTransfer.files[0]);}
+function loadImage(file){
+  if(!file||!file.type.startsWith('image/')) return alert('Please select a valid image.');
+  img=new Image();
+  img.onload=()=>{
+    origW=img.naturalWidth;origH=img.naturalHeight;
+    document.getElementById('ir-w').value=origW;document.getElementById('ir-h').value=origH;
+    document.getElementById('ir-controls').style.display='block';
+    document.getElementById('ir-info').textContent=`Original: ${origW}×${origH}px | ${(file.size/1024).toFixed(1)} KB | ${file.type}`;
+  };
+  img.src=URL.createObjectURL(file);
+}
+function updateH(){if(!document.getElementById('ir-lock').checked) return;const w=+document.getElementById('ir-w').value;document.getElementById('ir-h').value=Math.round(w*origH/origW);}
+function updateW(){if(!document.getElementById('ir-lock').checked) return;const h=+document.getElementById('ir-h').value;document.getElementById('ir-w').value=Math.round(h*origW/origH);}
+function resizeImage(){
+  const w=+document.getElementById('ir-w').value||origW,h=+document.getElementById('ir-h').value||origH;
+  const q=+document.getElementById('ir-q').value/100,fmt=document.getElementById('ir-fmt').value;
+  const c=document.getElementById('ir-canvas');c.width=w;c.height=h;
+  c.getContext('2d').drawImage(img,0,0,w,h);
+  const ext=fmt.split('/')[1]==='jpeg'?'jpg':fmt.split('/')[1];
+  const a=document.createElement('a');a.href=c.toDataURL(fmt,q);a.download='resized.'+ext;a.click();
+}
+function resetTool(){img=null;origW=0;origH=0;document.getElementById('ir-controls').style.display='none';document.getElementById('ir-file').value='';}
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Image Resizer</h2>
+      <p>The <strong>Image Resizer</strong> lets you resize any image to a custom width and height directly in your browser — no server upload needed. Your image stays private. Enable aspect ratio lock to prevent distortion. Supports output in JPEG, PNG, and WebP formats with adjustable quality.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Is my image uploaded to a server?</button>
+        <div class="faq-a"><p>No — everything happens in your browser using the Canvas API. Your image never leaves your device.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Why does JPEG have a quality slider but PNG doesn't?</button>
+        <div class="faq-a"><p>JPEG is a lossy format where quality affects file size. PNG is lossless — all quality settings produce the same visual result (though the slider still works in WebP mode).</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Image Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

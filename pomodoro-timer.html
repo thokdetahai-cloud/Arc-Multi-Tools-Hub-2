@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Pomodoro Timer — Free Productivity Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Free Pomodoro timer — boost your focus with 25-minute work sessions and short breaks. Browser-based, no login required."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .pomo-wrap { text-align:center; padding:2rem 0; }
+    .pomo-phases { display:flex; gap:.5rem; justify-content:center; margin-bottom:2rem; flex-wrap:wrap; }
+    .pomo-phase { padding:.5rem 1.25rem; border-radius:2rem; border:1.5px solid var(--border); background:transparent; color:var(--text); cursor:pointer; font-size:.85rem; transition:all .2s; }
+    .pomo-phase.active { background:var(--accent); border-color:var(--accent); color:#000; font-weight:600; }
+    .pomo-clock { width:220px; height:220px; border-radius:50%; border:6px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0 auto 2rem; position:relative; }
+    .pomo-ring { position:absolute; inset:0; border-radius:50%; }
+    .pomo-time { font-size:3.5rem; font-weight:700; font-family:'Clash Display',sans-serif; color:var(--accent); z-index:1; }
+    .pomo-label { font-size:.85rem; color:var(--text-muted); z-index:1; }
+    .pomo-btns { display:flex; gap:.75rem; justify-content:center; margin-bottom:1.5rem; }
+    .pomo-count { font-size:.9rem; color:var(--text-muted); }
+    .pomo-count span { color:var(--accent); font-weight:600; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc‑<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile"><a href="../index.html">Home</a><a href="../index.html#tools">Tools</a></div>
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🍅</div>
+  <h1>Pomodoro Timer</h1>
+  <p>Boost focus with the Pomodoro Technique — 25 min work, 5 min break, repeat.</p>
+</div>
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span><a href="../index.html#tools">Tools</a><span>›</span><span>Pomodoro Timer</span>
+    </div>
+    <div class="tool-workspace">
+      <h2>🍅 Pomodoro Timer</h2>
+      <div class="pomo-wrap">
+        <div class="pomo-phases">
+          <button class="pomo-phase active" id="p-work" onclick="setPhase('work')">🍅 Work (25 min)</button>
+          <button class="pomo-phase" id="p-short" onclick="setPhase('short')">☕ Short Break (5 min)</button>
+          <button class="pomo-phase" id="p-long" onclick="setPhase('long')">🛋️ Long Break (15 min)</button>
+        </div>
+        <div class="pomo-clock">
+          <svg class="pomo-ring" viewBox="0 0 220 220">
+            <circle cx="110" cy="110" r="104" fill="none" stroke="var(--border)" stroke-width="6"/>
+            <circle id="prog-circle" cx="110" cy="110" r="104" fill="none" stroke="var(--accent)" stroke-width="6"
+              stroke-linecap="round" stroke-dasharray="653" stroke-dashoffset="0"
+              transform="rotate(-90 110 110)" style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div class="pomo-time" id="timer-display">25:00</div>
+          <div class="pomo-label" id="timer-label">Work Session</div>
+        </div>
+        <div class="pomo-btns">
+          <button class="btn" id="start-btn" onclick="toggle()">▶ Start</button>
+          <button class="btn btn-outline" onclick="reset()">↺ Reset</button>
+        </div>
+        <div class="pomo-count">Completed sessions today: <span id="sessions">0</span></div>
+      </div>
+    </div>
+    <div class="tool-seo">
+      <h2>About the Pomodoro Timer</h2>
+      <p>The <strong>Pomodoro Technique</strong> is a time management method developed by Francesco Cirillo in the late 1980s. Work is broken into 25-minute focused intervals (called "pomodoros"), separated by 5-minute short breaks. After four sessions, take a longer 15–30 minute break.</p>
+      <p>Studies show this technique reduces the impact of interruptions, improves mental agility, and helps combat procrastination. This free timer handles all three phases automatically and tracks your completed sessions.</p>
+    </div>
+    <div class="tool-faq">
+      <h2>FAQ</h2>
+      <div class="faq-item">
+        <button class="faq-q">What is the Pomodoro Technique?</button>
+        <div class="faq-a"><p>It's a productivity method where you work in focused 25-minute intervals, then take a 5-minute break. After 4 intervals, you take a longer break of 15–30 minutes.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Will the timer keep running if I switch tabs?</button>
+        <div class="faq-a"><p>Yes! The timer runs in JavaScript using setInterval, so it continues even when you switch to another tab or window.</p></div>
+      </div>
+    </div>
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc‑<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools.</p></div>
+    <div class="footer__col"><h4>Categories</h4><a href="../index.html#tools">Productivity Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+<script>
+  const PHASES = { work:{label:'Work Session',mins:25}, short:{label:'Short Break',mins:5}, long:{label:'Long Break',mins:15} };
+  let current='work', running=false, interval=null, remaining=25*60, total=25*60, sessions=0;
+
+  function setPhase(p) {
+    if(running) return;
+    current=p;
+    document.querySelectorAll('.pomo-phase').forEach(b=>b.classList.remove('active'));
+    document.getElementById('p-'+p).classList.add('active');
+    remaining = total = PHASES[p].mins*60;
+    document.getElementById('timer-label').textContent = PHASES[p].label;
+    updateDisplay();
+    updateRing();
+  }
+
+  function toggle() {
+    running=!running;
+    document.getElementById('start-btn').textContent = running ? '⏸ Pause' : '▶ Start';
+    if(running) interval=setInterval(tick,1000); else clearInterval(interval);
+  }
+
+  function tick() {
+    remaining--;
+    updateDisplay(); updateRing();
+    if(remaining<=0) {
+      clearInterval(interval); running=false;
+      document.getElementById('start-btn').textContent='▶ Start';
+      if(current==='work'){sessions++;document.getElementById('sessions').textContent=sessions;}
+      if(typeof Notification!=='undefined'&&Notification.permission==='granted')
+        new Notification('Arc Timer',{body:PHASES[current].label+' complete!'});
+      setPhase(current==='work'?(sessions%4===0?'long':'short'):'work');
+    }
+  }
+
+  function reset() {
+    clearInterval(interval); running=false;
+    document.getElementById('start-btn').textContent='▶ Start';
+    remaining=total=PHASES[current].mins*60;
+    updateDisplay(); updateRing();
+  }
+
+  function updateDisplay() {
+    const m=Math.floor(remaining/60), s=remaining%60;
+    document.getElementById('timer-display').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    document.title='⏱ '+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+' — Arc Timer';
+  }
+
+  function updateRing() {
+    const circ=2*Math.PI*104, pct=remaining/total;
+    document.getElementById('prog-circle').style.strokeDashoffset=circ*(1-pct);
+  }
+
+  if(typeof Notification!=='undefined') Notification.requestPermission();
+</script>
+</body>
+</html>

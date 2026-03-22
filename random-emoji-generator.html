@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Random Emoji Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Generate random emojis by category for fun, captions, reactions, and creative use."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🎭</div>
+  <h1>Random Emoji Generator</h1>
+  <p>Generate random emojis by category for fun, captions, reactions, and creative use.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Random Emoji Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🎭 Random Emoji Generator</h2>
+      
+<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem">
+  <button class="btn active" id="cat-all" onclick="setCategory('all',this)">All</button>
+  <button class="btn btn-outline" id="cat-faces" onclick="setCategory('faces',this)">😀 Faces</button>
+  <button class="btn btn-outline" id="cat-animals" onclick="setCategory('animals',this)">🐶 Animals</button>
+  <button class="btn btn-outline" id="cat-food" onclick="setCategory('food',this)">🍕 Food</button>
+  <button class="btn btn-outline" id="cat-nature" onclick="setCategory('nature',this)">🌸 Nature</button>
+  <button class="btn btn-outline" id="cat-objects" onclick="setCategory('objects',this)">📱 Objects</button>
+  <button class="btn btn-outline" id="cat-symbols" onclick="setCategory('symbols',this)">⭐ Symbols</button>
+</div>
+<div class="t-row">
+  <label>Count</label>
+  <input type="number" id="eg-count" min="1" max="50" value="10"/>
+</div>
+<button class="btn" style="width:100%;margin:.5rem 0" onclick="genEmojis()">🎲 Generate!</button>
+<div id="eg-res" style="font-size:2rem;letter-spacing:.1em;line-height:2.5;text-align:center;margin-top:1rem;word-break:break-all"></div>
+<button class="btn btn-outline" style="margin-top:.75rem;width:100%" onclick="copyEmojis()">Copy All Emojis</button>
+<script>
+const CATS={
+  faces:['😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚','😋','😛','😝','😜','🤪','🤨','🧐','🤓','😎','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','😈','👿','💀'],
+  animals:['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🙈','🙉','🙊','🐔','🐧','🐦','🐤','🦆','🦅','🦉','🦇','🐺','🐗','🐴','🦄','🐝','🐛','🦋','🐌','🐞','🐜','🦟','🦗','🕷','🐢','🐍','🦎','🦕','🦖','🐙','🦑','🦐','🐠','🐟','🐡','🐬','🐳','🐋','🦈'],
+  food:['🍎','🍊','🍋','🍇','🍓','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🥑','🍆','🥦','🌽','🥕','🧅','🥔','🍠','🥐','🥖','🍞','🥨','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🌮','🌯','🥙','🧆','🥚','🍱','🍣','🍛','🍜','🍝','🍨','🍦','🧁','🎂','🍰','🍫','🍬','🍭','🍮'],
+  nature:['🌸','🌺','🌻','🌹','🌷','🌼','💐','🌿','☘️','🍀','🍁','🍂','🍃','🌲','🌳','🌴','🌵','🌾','🍄','🌰','🌙','⭐','🌟','💫','✨','☀️','🌤','⛅','🌦','🌧','⛈','🌩','🌨','❄️','🌬','💨','🌈','☁️','⛄','🌊','💧','🔥','🌀','🌪','🌫','🌍','🌎','🌏','🌑','🌕','🌛','🌜'],
+  objects:['📱','💻','🖥','⌨️','🖱','🖨','📷','📸','📹','🎥','📺','📻','📡','🔋','💡','🔦','🕯','🔌','🔧','🔨','⚙️','🔩','🧲','💰','💳','💎','⚗️','🧪','🔬','🔭','📡','🎭','🎨','🖼','🎪','🎢','🎠','🎡','🎯','🎳','🎲','🎮','🕹','🎰','🃏','🀄','🎴','📚','📖','📰','🗞'],
+  symbols:['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','💕','💞','💓','💗','💖','💘','💝','✅','❌','❓','❗','💢','💥','💫','💦','💤','🔔','🔕','🔇','🔊','📢','📣','💬','💭','💯','🔴','🟠','🟡','🟢','🔵','🟣','⚫','⚪','🟤','🔺','🔻','🔷','🔶','🔹','🔸','🔲','🔳'],
+};
+CATS.all=[...new Set(Object.values(CATS).flat())];
+let currentCat='all';
+function setCategory(cat,btn){
+  currentCat=cat;
+  document.querySelectorAll('.btn').forEach(b=>{b.classList.remove('active');if(!b.classList.contains('btn-outline'))b.classList.add('btn-outline');});
+  btn.classList.remove('btn-outline');btn.classList.add('active');
+  genEmojis();
+}
+function genEmojis(){
+  const pool=CATS[currentCat];
+  const count=Math.min(50,+document.getElementById('eg-count').value||10);
+  const emojis=Array.from({length:count},()=>pool[Math.floor(Math.random()*pool.length)]);
+  document.getElementById('eg-res').textContent=emojis.join(' ');
+  document.getElementById('eg-res')._emojis=emojis.join(' ');
+}
+function copyEmojis(){navigator.clipboard.writeText(document.getElementById('eg-res')._emojis||'').then(()=>alert('Emojis copied!'));}
+genEmojis();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Random Emoji Generator</h2>
+      <p>The <strong>Random Emoji Generator</strong> picks random emojis from curated categories — faces, animals, food, nature, objects, and symbols. Generate up to 50 emojis at once and copy them instantly. Great for social media captions, fun messaging, creative writing prompts, or just a dose of visual randomness.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Can I filter by category?</button>
+        <div class="faq-a"><p>Yes! Use the category buttons at the top to filter emojis by type. 'All' combines every category for maximum variety.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do all emojis display on every device?</button>
+        <div class="faq-a"><p>Most modern devices support the standard emoji set. Newer emojis (introduced in 2022-2024) may not display on older operating systems.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Fun Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

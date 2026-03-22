@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>PNG to JPG Converter — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Convert PNG images to JPG format in your browser. Adjust quality. Free, private, no server upload."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🔄</div>
+  <h1>PNG to JPG Converter</h1>
+  <p>Convert PNG images to JPG format in your browser. Adjust quality. Free, private, no server upload.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>PNG to JPG Converter</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🔄 PNG to JPG Converter</h2>
+      
+<div id="p2j-drop" style="border:2px dashed var(--border);border-radius:1rem;padding:2.5rem;text-align:center;cursor:pointer;margin-bottom:1rem" onclick="document.getElementById('p2j-file').click()" ondragover="event.preventDefault()" ondrop="p2jDrop(event)">
+  <div style="font-size:2.5rem;margin-bottom:.5rem">🔄</div>
+  <div style="font-weight:600">Click or drag a PNG image here</div>
+  <input type="file" id="p2j-file" accept="image/png" style="display:none" onchange="p2jLoad(this.files[0])"/>
+</div>
+<div id="p2j-controls" style="display:none">
+  <div class="t-row"><label>JPEG Quality</label><input type="range" id="p2j-q" min="1" max="100" value="90" oninput="document.getElementById('p2j-qv').textContent=this.value+'%'"/><span id="p2j-qv">90%</span></div>
+  <div class="t-row"><label>Background</label><input type="color" id="p2j-bg" value="#ffffff" title="Background color for transparent areas"/><span style="font-size:.8rem;color:var(--text-muted)">For transparent areas</span></div>
+  <div id="p2j-info" style="font-size:.82rem;color:var(--text-muted);margin-bottom:.75rem"></div>
+  <div class="t-btns">
+    <button class="btn" onclick="p2jDownload()">⬇ Download JPG</button>
+    <button class="btn btn-outline" onclick="p2jReset()">Convert Another</button>
+  </div>
+  <canvas id="p2j-canvas" style="display:none"></canvas>
+</div>
+<script>
+let p2jImg=null;
+function p2jDrop(e){e.preventDefault();p2jLoad(e.dataTransfer.files[0]);}
+function p2jLoad(file){
+  if(!file) return;
+  p2jImg=new Image();
+  p2jImg.onload=()=>{
+    document.getElementById('p2j-controls').style.display='block';
+    document.getElementById('p2j-info').textContent=`${p2jImg.naturalWidth}×${p2jImg.naturalHeight}px | ${(file.size/1024).toFixed(1)} KB PNG`;
+  };
+  p2jImg.src=URL.createObjectURL(file);
+}
+function p2jDownload(){
+  const q=+document.getElementById('p2j-q').value/100;
+  const bg=document.getElementById('p2j-bg').value;
+  const c=document.getElementById('p2j-canvas');
+  c.width=p2jImg.naturalWidth;c.height=p2jImg.naturalHeight;
+  const ctx=c.getContext('2d');ctx.fillStyle=bg;ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(p2jImg,0,0);
+  const a=document.createElement('a');a.href=c.toDataURL('image/jpeg',q);a.download='converted.jpg';a.click();
+}
+function p2jReset(){p2jImg=null;document.getElementById('p2j-controls').style.display='none';document.getElementById('p2j-file').value='';}
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About PNG to JPG Converter</h2>
+      <p>The <strong>PNG to JPG Converter</strong> converts PNG images to JPEG format, with adjustable quality and a background color picker for transparent areas (since JPG doesn't support transparency). Lower quality means smaller file size — useful for web optimization. All processing happens in your browser.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">What happens to transparent areas when converting?</button>
+        <div class="faq-a"><p>JPG doesn't support transparency. Transparent areas are filled with the background color you choose (default white). Use the color picker to change it.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What quality setting should I use?</button>
+        <div class="faq-a"><p>80–90% quality is usually ideal for photos — the file size drops significantly with minimal visible quality loss. For graphics with text, use 90–100%.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Image Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

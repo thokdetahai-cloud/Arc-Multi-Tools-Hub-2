@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Age Difference Calculator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Calculate the age difference between two people or dates. Find out who is older and by how much."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🗓</div>
+  <h1>Age Difference Calculator</h1>
+  <p>Calculate the age difference between two people or dates. Find out who is older and by how much.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Age Difference Calculator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🗓 Age Difference Calculator</h2>
+      
+<div class="t-row"><label>Person A DOB</label><input type="date" id="ad-a"/></div>
+<div class="t-row"><label>Person B DOB</label><input type="date" id="ad-b"/></div>
+<button class="btn" style="width:100%;margin-top:.25rem" onclick="calcAgeDiff()">Calculate Difference</button>
+<div class="t-stat-grid" id="ad-res" style="display:none">
+  <div class="t-stat"><div class="t-stat__num" id="ad-years">—</div><div class="t-stat__lbl">Years Apart</div></div>
+  <div class="t-stat"><div class="t-stat__num" id="ad-months">—</div><div class="t-stat__lbl">Months Apart</div></div>
+  <div class="t-stat"><div class="t-stat__num" id="ad-days">—</div><div class="t-stat__lbl">Days Apart</div></div>
+</div>
+<div id="ad-note" style="margin-top:1rem;text-align:center;color:var(--text-muted);font-size:.9rem"></div>
+<script>
+function calcAgeDiff(){
+  const a=new Date(document.getElementById('ad-a').value);
+  const b=new Date(document.getElementById('ad-b').value);
+  if(!document.getElementById('ad-a').value||!document.getElementById('ad-b').value) return alert('Please enter both dates.');
+  const older=a<b?a:b, younger=a<b?b:a;
+  const totalDays=Math.abs(Math.round((b-a)/86400000));
+  const totalMonths=Math.abs((b.getFullYear()-a.getFullYear())*12+(b.getMonth()-a.getMonth()));
+  const years=Math.floor(totalMonths/12), months=totalMonths%12;
+  document.getElementById('ad-years').textContent=years;
+  document.getElementById('ad-months').textContent=totalMonths;
+  document.getElementById('ad-days').textContent=totalDays.toLocaleString();
+  document.getElementById('ad-res').style.display='grid';
+  const olderLabel=a<b?'Person A':'Person B';
+  document.getElementById('ad-note').textContent=\`\${olderLabel} is older by \${years} year\${years!==1?'s':''} and \${months} month\${months!==1?'s':''}.\`;
+}
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Age Difference Calculator</h2>
+      <p>The <strong>Age Difference Calculator</strong> computes the gap between two birth dates in years, months, and total days. It also tells you who is older. Useful for genealogy, relationship compatibility comparisons, historical research, or just satisfying curiosity.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Can I compare dates in the future?</button>
+        <div class="faq-a"><p>Yes — you can enter any two dates, including future dates, and the calculator will find the difference.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Does it account for leap years?</button>
+        <div class="faq-a"><p>Yes — the day calculation uses actual calendar math, so leap years are automatically accounted for.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Date & Time Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

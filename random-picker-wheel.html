@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Random Picker Wheel — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Spin the wheel to pick a random option! Add your choices and let the wheel decide. Free, fun, instant."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🎡</div>
+  <h1>Random Picker Wheel</h1>
+  <p>Spin the wheel to pick a random option! Add your choices and let the wheel decide. Free, fun, instant.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Random Picker Wheel</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🎡 Random Picker Wheel</h2>
+      
+<div style="display:flex;gap:.5rem;margin-bottom:.75rem">
+  <input class="t-input" id="rw-in" placeholder="Add an option..." style="margin:0;flex:1" onkeydown="if(event.key==='Enter')addOption()"/>
+  <button class="btn" onclick="addOption()">Add</button>
+</div>
+<div id="rw-chips" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;min-height:32px"></div>
+<div style="display:flex;justify-content:center;flex-direction:column;align-items:center;gap:1rem">
+  <div style="position:relative">
+    <canvas id="rw-canvas" width="300" height="300" style="border-radius:50%;border:3px solid var(--accent)"></canvas>
+    <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:1.5rem;line-height:1">▼</div>
+  </div>
+  <button class="btn" style="font-size:1.1rem;padding:1rem 2.5rem" onclick="spinWheel()">🎡 Spin!</button>
+  <div id="rw-result" style="font-size:1.4rem;font-weight:700;color:var(--accent);min-height:2rem;text-align:center"></div>
+</div>
+<script>
+let options=[],spinning=false,rotation=0;
+const COLORS=['#00d4ff','#7c3aed','#f97316','#22c55e','#eab308','#ef4444','#ec4899','#14b8a6'];
+function addOption(){
+  const v=document.getElementById('rw-in').value.trim();
+  if(!v||options.length>=12) return;
+  options.push(v);document.getElementById('rw-in').value='';
+  renderChips();drawWheel();
+}
+function removeOption(i){options.splice(i,1);renderChips();drawWheel();}
+function renderChips(){
+  document.getElementById('rw-chips').innerHTML=options.map((o,i)=>`<span style="display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .75rem;border-radius:2rem;background:${COLORS[i%COLORS.length]}22;border:1px solid ${COLORS[i%COLORS.length]};font-size:.82rem">${o}<button onclick="removeOption(${i})" style="background:none;border:none;cursor:pointer;color:${COLORS[i%COLORS.length]};font-size:1rem;padding:0;line-height:1">×</button></span>`).join('');
+}
+function drawWheel(rot=0){
+  const c=document.getElementById('rw-canvas');
+  const ctx=c.getContext('2d');
+  ctx.clearRect(0,0,300,300);
+  if(!options.length){ctx.fillStyle='var(--border)';ctx.beginPath();ctx.arc(150,150,148,0,Math.PI*2);ctx.fill();ctx.fillStyle='#666';ctx.font='16px Arial';ctx.textAlign='center';ctx.fillText('Add options above',150,155);return;}
+  const arc=2*Math.PI/options.length;
+  options.forEach((opt,i)=>{
+    const start=rot+i*arc,end=start+arc;
+    ctx.beginPath();ctx.moveTo(150,150);ctx.arc(150,150,148,start,end);ctx.closePath();
+    ctx.fillStyle=COLORS[i%COLORS.length];ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+    ctx.save();ctx.translate(150,150);ctx.rotate(start+arc/2);
+    ctx.textAlign='right';ctx.fillStyle='#fff';ctx.font='bold 13px Arial';
+    ctx.fillText(opt.length>12?opt.slice(0,12)+'…':opt,132,5);
+    ctx.restore();
+  });
+  ctx.beginPath();ctx.arc(150,150,18,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.strokeStyle='var(--accent)';ctx.lineWidth=3;ctx.stroke();
+}
+function spinWheel(){
+  if(spinning||!options.length) return;
+  spinning=true;document.getElementById('rw-result').textContent='';
+  const extra=Math.PI*2*(5+Math.floor(Math.random()*5));
+  const final=Math.random()*Math.PI*2;
+  const total=rotation+extra+final;
+  const dur=3000;const start=performance.now();const fromRot=rotation;
+  function animate(now){
+    const t=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-t,4);
+    rotation=fromRot+(total-fromRot)*ease;
+    drawWheel(rotation);
+    if(t<1){requestAnimationFrame(animate);}
+    else{
+      spinning=false;rotation=total%(Math.PI*2);
+      const arc=Math.PI*2/options.length;
+      const ptr=(Math.PI*2*3.5-rotation%(Math.PI*2)+Math.PI*2)%(Math.PI*2);
+      const idx=Math.floor(ptr/arc)%options.length;
+      document.getElementById('rw-result').textContent='🎯 '+options[idx]+'!';
+    }
+  }
+  requestAnimationFrame(animate);
+}
+['Pizza','Sushi','Tacos'].forEach(o=>options.push(o));
+renderChips();drawWheel();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Random Picker Wheel</h2>
+      <p>The <strong>Random Picker Wheel</strong> is an animated spinning wheel that randomly selects from your list of options. Add up to 12 choices, then click Spin to let the wheel decide! The animation eases out naturally for a realistic spinning effect. Great for choosing dinner options, prizes, random assignments, or any group decision.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Is the spin result truly random?</button>
+        <div class="faq-a"><p>Yes — the final landing position is randomly determined before the spin animation starts. The animation is visual only.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How many options can I add?</button>
+        <div class="faq-a"><p>The wheel supports up to 12 options. For more than 12, use our Random Name Picker or Random Decision Maker tools instead.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Fun Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

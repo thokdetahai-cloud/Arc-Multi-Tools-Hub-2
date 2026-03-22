@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Text to Handwriting — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Convert typed text to a handwriting-style font. Generate a handwritten look for any text. Free, instant."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">✍️</div>
+  <h1>Text to Handwriting</h1>
+  <p>Convert typed text to a handwriting-style font. Generate a handwritten look for any text. Free, instant.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Text to Handwriting</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>✍️ Text to Handwriting</h2>
+      
+<textarea class="t-textarea" id="th-in" placeholder="Type text to convert to handwriting style..." style="min-height:120px">Dear Friend,
+I hope this message finds you well. 
+It was great seeing you last weekend!
+
+Best wishes,
+Alex</textarea>
+<div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+  <div class="t-row" style="flex:1"><label>Style</label>
+    <select id="th-font" onchange="renderHW()">
+      <option value="'Caveat',cursive">Caveat (casual)</option>
+      <option value="'Pacifico',cursive">Pacifico (rounded)</option>
+      <option value="'Dancing Script',cursive">Dancing Script (elegant)</option>
+      <option value="'Indie Flower',cursive">Indie Flower (bubbly)</option>
+      <option value="'Patrick Hand',cursive">Patrick Hand (neat)</option>
+    </select>
+  </div>
+  <div class="t-row"><label>Size</label><input type="range" id="th-size" min="14" max="36" value="22" oninput="renderHW()"/><span id="th-sv">22px</span></div>
+  <div class="t-row"><label>Color</label><input type="color" id="th-color" value="#1a237e" oninput="renderHW()" style="width:50px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px"/></div>
+  <div class="t-row"><label>Line Color</label><input type="color" id="th-line" value="#e3f2fd" oninput="renderHW()" style="width:50px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px"/></div>
+  <div class="t-row"><label>Paper</label>
+    <select id="th-paper" onchange="renderHW()">
+      <option value="#fffde7">Yellow (notepad)</option>
+      <option value="#ffffff">White</option>
+      <option value="#e8f5e9">Green (graph)</option>
+      <option value="#fce4ec">Pink</option>
+    </select>
+  </div>
+</div>
+<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Pacifico&family=Dancing+Script&family=Indie+Flower&family=Patrick+Hand&display=swap" rel="stylesheet">
+<div id="th-preview" style="border-radius:1rem;overflow:hidden;border:1.5px solid var(--border);margin-bottom:1rem"></div>
+<div class="t-btns">
+  <button class="btn" onclick="downloadHW()">⬇ Download as PNG</button>
+  <button class="btn btn-outline" onclick="renderHW()">Refresh</button>
+</div>
+<canvas id="th-canvas" style="display:none"></canvas>
+<script>
+function renderHW(){
+  const text=document.getElementById('th-in').value;
+  const font=document.getElementById('th-font').value;
+  const size=document.getElementById('th-size').value;
+  const color=document.getElementById('th-color').value;
+  const lineColor=document.getElementById('th-line').value;
+  const paper=document.getElementById('th-paper').value;
+  document.getElementById('th-sv').textContent=size+'px';
+  const lines=text.split('
+');
+  const lineH=parseInt(size)*1.8;
+  const padding=32;
+  let html=`<div style="background:${paper};padding:${padding}px;font-family:${font};font-size:${size}px;color:${color};line-height:${lineH}px;min-height:200px;background-image:repeating-linear-gradient(transparent,transparent ${lineH-1}px,${lineColor} ${lineH-1}px,${lineColor} ${lineH}px);background-position:0 ${lineH*0.85}px;white-space:pre-wrap;word-wrap:break-word">${text.replace(/</g,'&lt;')}</div>`;
+  document.getElementById('th-preview').innerHTML=html;
+}
+function downloadHW(){
+  const el=document.getElementById('th-preview').firstChild;
+  if(!el) return;
+  alert('To save: right-click the preview and choose "Save image as..." or take a screenshot.');
+}
+renderHW();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Text to Handwriting</h2>
+      <p>The <strong>Text to Handwriting</strong> tool renders your typed text using Google's handwriting-style fonts on a lined paper background. Choose from 5 styles (Caveat, Pacifico, Dancing Script, Indie Flower, Patrick Hand), adjust size, ink color, line color, and paper color. Great for creating the look of handwritten notes, letters, or cards.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Is this real handwriting recognition?</button>
+        <div class="faq-a"><p>No — it uses Google Fonts handwriting-style typefaces to simulate handwritten text. It doesn't analyze your actual handwriting.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I make it look like a real notebook page?</button>
+        <div class="faq-a"><p>Yes — choose Yellow paper for a legal pad look, White for plain paper, or Green for graph paper. The ruled lines are generated with CSS and scale to your font size.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Document Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

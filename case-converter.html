@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Case Converter — Free Online Text Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Free online case converter — convert text to uppercase, lowercase, title case, camelCase, snake_case and more. Instant, browser-based."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .cc-area { width:100%; min-height:160px; padding:1rem; border-radius:.875rem; border:1.5px solid var(--border); background:var(--bg); color:var(--text); font-size:1rem; line-height:1.7; resize:vertical; font-family:'DM Sans',sans-serif; }
+    .cc-area:focus { outline:none; border-color:var(--accent); }
+    .cc-btns { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:.75rem; margin:1rem 0; }
+    .cc-btn { padding:.65rem 1rem; border-radius:.75rem; border:1.5px solid var(--border); background:transparent; color:var(--text); cursor:pointer; font-size:.85rem; transition:all .2s; text-align:center; }
+    .cc-btn:hover { border-color:var(--accent); color:var(--accent); background:rgba(0,212,255,.07); }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc‑<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+</div>
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🔤</div>
+  <h1>Case Converter</h1>
+  <p>Convert text between uppercase, lowercase, title case, camelCase, snake_case and more.</p>
+</div>
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span><a href="../index.html#tools">Tools</a><span>›</span><span>Case Converter</span>
+    </div>
+    <div class="tool-workspace">
+      <h2>🔤 Case Converter</h2>
+      <textarea class="cc-area" id="input" placeholder="Type or paste your text here..."></textarea>
+      <div class="cc-btns">
+        <button class="cc-btn" onclick="convert('upper')">UPPERCASE</button>
+        <button class="cc-btn" onclick="convert('lower')">lowercase</button>
+        <button class="cc-btn" onclick="convert('title')">Title Case</button>
+        <button class="cc-btn" onclick="convert('sentence')">Sentence case</button>
+        <button class="cc-btn" onclick="convert('camel')">camelCase</button>
+        <button class="cc-btn" onclick="convert('pascal')">PascalCase</button>
+        <button class="cc-btn" onclick="convert('snake')">snake_case</button>
+        <button class="cc-btn" onclick="convert('kebab')">kebab-case</button>
+        <button class="cc-btn" onclick="convert('alt')">aLtErNaTiNg</button>
+        <button class="cc-btn" onclick="convert('inverse')">iNVERSE cASE</button>
+      </div>
+      <textarea class="cc-area" id="output" placeholder="Output will appear here..." readonly></textarea>
+      <div style="display:flex;gap:.75rem;margin-top:.75rem">
+        <button class="btn btn-outline" onclick="copyOut()">Copy Output</button>
+        <button class="btn btn-outline" onclick="document.getElementById('input').value='';document.getElementById('output').value=''">Clear</button>
+      </div>
+    </div>
+    <div class="tool-seo">
+      <h2>About Case Converter</h2>
+      <p>The <strong>Arc-Multi Tool Case Converter</strong> lets you quickly transform text between 10 different case formats. It's essential for developers, writers, and SEO professionals.</p>
+      <p><strong>Supported formats:</strong> UPPERCASE, lowercase, Title Case, Sentence case, camelCase (for JavaScript), PascalCase (for class names), snake_case (for Python/databases), kebab-case (for CSS/URLs), alternating case, and inverse case.</p>
+    </div>
+    <div class="tool-faq">
+      <h2>FAQ</h2>
+      <div class="faq-item">
+        <button class="faq-q">What is camelCase used for?</button>
+        <div class="faq-a"><p>camelCase is commonly used in JavaScript, Java, and Swift for variable and function names (e.g., <code>myVariableName</code>).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What's the difference between camelCase and PascalCase?</button>
+        <div class="faq-a"><p>camelCase starts with a lowercase letter (myFunction), while PascalCase starts with uppercase (MyFunction). PascalCase is used for class names.</p></div>
+      </div>
+    </div>
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc‑<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools.</p></div>
+    <div class="footer__col"><h4>Categories</h4><a href="../index.html#tools">Text Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+<script>
+  function convert(type) {
+    const t = document.getElementById('input').value;
+    if(!t) return;
+    let out = '';
+    switch(type) {
+      case 'upper': out=t.toUpperCase(); break;
+      case 'lower': out=t.toLowerCase(); break;
+      case 'title': out=t.replace(/\w\S*/g,w=>w[0].toUpperCase()+w.slice(1).toLowerCase()); break;
+      case 'sentence': out=t.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g,c=>c.toUpperCase()); break;
+      case 'camel': out=t.replace(/[\s_-]+(.)/g,(_,c)=>c.toUpperCase()).replace(/^./,c=>c.toLowerCase()); break;
+      case 'pascal': out=t.replace(/[\s_-]+(.)/g,(_,c)=>c.toUpperCase()).replace(/^./,c=>c.toUpperCase()); break;
+      case 'snake': out=t.trim().replace(/[\s-]+/g,'_').toLowerCase(); break;
+      case 'kebab': out=t.trim().replace(/[\s_]+/g,'-').toLowerCase(); break;
+      case 'alt': out=t.split('').map((c,i)=>i%2===0?c.toLowerCase():c.toUpperCase()).join(''); break;
+      case 'inverse': out=t.split('').map(c=>c===c.toUpperCase()?c.toLowerCase():c.toUpperCase()).join(''); break;
+    }
+    document.getElementById('output').value = out;
+  }
+  function copyOut() {
+    const v=document.getElementById('output').value;
+    if(!v) return;
+    navigator.clipboard.writeText(v).then(()=>alert('Copied!'));
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>UUID Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Free UUID v4 generator — generate single or bulk UUIDs instantly. Copy to clipboard, browser-based, no login."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .uuid-single { display:flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; }
+    .uuid-out { flex:1; padding:.875rem 1.25rem; border-radius:.875rem; border:1.5px solid var(--border); background:var(--bg); color:var(--accent); font-family:monospace; font-size:1rem; }
+    .uuid-bulk-area { width:100%; min-height:200px; padding:1rem; border-radius:.875rem; border:1.5px solid var(--border); background:var(--bg); color:var(--text); font-family:monospace; font-size:.875rem; resize:vertical; }
+    .uuid-controls { display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; margin-bottom:1rem; }
+    .uuid-controls label { font-size:.85rem; color:var(--text-muted); }
+    .uuid-controls input[type=number] { width:80px; padding:.5rem .75rem; border-radius:.75rem; border:1.5px solid var(--border); background:var(--bg); color:var(--text); font-size:.9rem; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc‑<span>multi</span> Tool</a>
+    <div class="navbar__nav"><a href="../index.html">Home</a><a href="../index.html#tools">Tools</a><a href="../about.html">About</a></div>
+    <div class="navbar__actions"><button class="theme-toggle">☀️</button><button class="hamburger"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="navbar__mobile"><a href="../index.html">Home</a><a href="../index.html#tools">Tools</a></div>
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🔑</div>
+  <h1>UUID Generator</h1>
+  <p>Generate RFC-compliant UUID v4 identifiers instantly — single or bulk.</p>
+</div>
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb"><a href="../index.html">Home</a><span>›</span><a href="../index.html#tools">Tools</a><span>›</span><span>UUID Generator</span></div>
+    <div class="tool-workspace">
+      <h2>🔑 UUID v4 Generator</h2>
+      <label style="display:block;font-size:.85rem;color:var(--text-muted);margin-bottom:.5rem">Single UUID</label>
+      <div class="uuid-single">
+        <input class="uuid-out" id="single-uuid" readonly/>
+        <button class="btn" onclick="genSingle()">Generate</button>
+        <button class="btn btn-outline" onclick="copySingle()">Copy</button>
+      </div>
+
+      <label style="display:block;font-size:.85rem;color:var(--text-muted);margin-bottom:.5rem">Bulk Generator</label>
+      <div class="uuid-controls">
+        <label>Count:</label>
+        <input type="number" id="bulk-count" min="1" max="1000" value="10"/>
+        <label>Format:</label>
+        <select id="bulk-fmt" style="padding:.5rem .75rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:.85rem">
+          <option value="plain">Plain UUID</option>
+          <option value="braces">{UUID}</option>
+          <option value="quotes">"UUID"</option>
+        </select>
+        <button class="btn" onclick="genBulk()">Generate Bulk</button>
+        <button class="btn btn-outline" onclick="copyBulk()">Copy All</button>
+      </div>
+      <textarea class="uuid-bulk-area" id="bulk-out" readonly></textarea>
+    </div>
+    <div class="tool-seo">
+      <h2>About the UUID Generator</h2>
+      <p>A <strong>UUID (Universally Unique Identifier)</strong> is a 128-bit label used for information in computer systems. Version 4 UUIDs are randomly generated and have an astronomically low collision probability — making them ideal for database primary keys, session IDs, file names, API tokens, and more.</p>
+      <p>This tool generates <strong>RFC 4122-compliant UUID v4</strong> identifiers using the browser's cryptographically secure random number generator. You can generate up to 1000 UUIDs at once in multiple formats.</p>
+    </div>
+    <div class="tool-faq">
+      <h2>FAQ</h2>
+      <div class="faq-item">
+        <button class="faq-q">What is UUID v4?</button>
+        <div class="faq-a"><p>UUID v4 is the most common UUID version, generated entirely from random numbers. The format is xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx where y is 8, 9, a, or b.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are these UUIDs truly unique?</button>
+        <div class="faq-a"><p>The probability of generating a duplicate UUID v4 is approximately 1 in 5.3×10³⁶ — essentially impossible for practical purposes. We use crypto.randomUUID() for maximum randomness.</p></div>
+      </div>
+    </div>
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc‑<span>multi</span> Tool</div><p class="footer__desc">100+ free tools.</p></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+<script>
+  function uuid() {
+    if(crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&0x3|0x8)).toString(16);});
+  }
+  function genSingle() { document.getElementById('single-uuid').value=uuid(); }
+  function copySingle() { navigator.clipboard.writeText(document.getElementById('single-uuid').value).then(()=>alert('Copied!')); }
+  function genBulk() {
+    const n=Math.min(1000,Math.max(1,+document.getElementById('bulk-count').value||10));
+    const fmt=document.getElementById('bulk-fmt').value;
+    const uuids=Array.from({length:n},()=>{
+      const u=uuid();
+      if(fmt==='braces') return '{'+u+'}';
+      if(fmt==='quotes') return '"'+u+'"';
+      return u;
+    });
+    document.getElementById('bulk-out').value=uuids.join('\n');
+  }
+  function copyBulk() { navigator.clipboard.writeText(document.getElementById('bulk-out').value).then(()=>alert('Copied!')); }
+  genSingle(); genBulk();
+</script>
+</body>
+</html>

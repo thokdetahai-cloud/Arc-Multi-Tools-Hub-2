@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Date Formatter — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Format dates in dozens of styles — ISO, US, UK, relative, Unix timestamp. Free, instant."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">📅</div>
+  <h1>Date Formatter</h1>
+  <p>Format dates in dozens of styles — ISO, US, UK, relative, Unix timestamp. Free, instant.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Date Formatter</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>📅 Date Formatter</h2>
+      
+<div class="t-row"><label>Select Date</label><input type="date" id="df-date" oninput="formatDate()"/></div>
+<div id="df-res" style="margin-top:1rem"></div>
+<script>
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const SHORT_M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const SHORT_D=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function pad(n){return String(n).padStart(2,'0');}
+function nth(d){const s=['th','st','nd','rd'];const v=d%100;return d+(s[(v-20)%10]||s[v]||s[0]);}
+document.getElementById('df-date').value=new Date().toISOString().split('T')[0];
+function formatDate(){
+  const val=document.getElementById('df-date').value;
+  if(!val) return;
+  const d=new Date(val+'T00:00:00');
+  const Y=d.getFullYear(),M=d.getMonth(),D=d.getDate(),W=d.getDay();
+  const unix=Math.floor(d.getTime()/1000);
+  const formats=[
+    {label:'ISO 8601',value:\`\${Y}-\${pad(M+1)}-\${pad(D)}\`},
+    {label:'US (MM/DD/YYYY)',value:\`\${pad(M+1)}/\${pad(D)}/\${Y}\`},
+    {label:'UK (DD/MM/YYYY)',value:\`\${pad(D)}/\${pad(M+1)}/\${Y}\`},
+    {label:'Long (Month DD, YYYY)',value:\`\${MONTHS[M]} \${D}, \${Y}\`},
+    {label:'Short (DD Mon YYYY)',value:\`\${D} \${SHORT_M[M]} \${Y}\`},
+    {label:'Full with weekday',value:\`\${DAYS[W]}, \${MONTHS[M]} \${nth(D)}, \${Y}\`},
+    {label:'Day of week',value:DAYS[W]},
+    {label:'Month name',value:MONTHS[M]},
+    {label:'Unix Timestamp',value:String(unix)},
+    {label:'Ordinal date',value:\`\${Y}-\${String(Math.floor((d-new Date(Y,0,0))/86400000)).padStart(3,'0')}\`},
+  ];
+  document.getElementById('df-res').innerHTML='<div style="border:1.5px solid var(--border);border-radius:.875rem;overflow:hidden">'+
+    formats.map(f=>\`<div style="display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;border-bottom:1px solid var(--border)">
+      <span style="flex:0 0 180px;font-size:.8rem;color:var(--text-muted)">\${f.label}</span>
+      <span style="flex:1;font-family:monospace;color:var(--accent)">\${f.value}</span>
+      <button onclick="navigator.clipboard.writeText('\${f.value}').then(()=>alert('Copied!'))" style="padding:.3rem .65rem;border-radius:.5rem;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;font-size:.75rem">Copy</button>
+    </div>\`).join('')+'</div>';
+}
+formatDate();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Date Formatter</h2>
+      <p>The <strong>Date Formatter</strong> takes any date and instantly shows it in 10 common formats — ISO 8601, US format, UK format, long form, short form, full weekday, Unix timestamp, and more. Each format has a copy button. Essential for developers, writers, and anyone working across international date conventions.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">What is ISO 8601?</button>
+        <div class="faq-a"><p>ISO 8601 is the international standard for dates: YYYY-MM-DD. It's used in databases, APIs, and technical contexts because it sorts lexicographically and is unambiguous.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What is a Unix timestamp?</button>
+        <div class="faq-a"><p>Unix timestamp is the number of seconds since January 1, 1970 (UTC). It's used extensively in programming, databases, and APIs.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Date & Time Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

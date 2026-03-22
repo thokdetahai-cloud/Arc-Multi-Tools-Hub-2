@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>QR Code Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Free QR code generator — generate QR codes for URLs, text, email, phone numbers instantly. Download as PNG. No login required."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .qr-wrap { display:flex; gap:2rem; align-items:flex-start; flex-wrap:wrap; }
+    .qr-controls { flex:1; min-width:250px; }
+    .qr-preview { flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:1rem; }
+    .qr-preview canvas, .qr-preview img { border-radius:.75rem; background:#fff; padding:12px; }
+    .qr-input { width:100%; padding:.875rem 1rem; border-radius:.875rem; border:1.5px solid var(--border); background:var(--bg); color:var(--text); font-size:1rem; margin-bottom:1rem; }
+    .qr-input:focus { outline:none; border-color:var(--accent); }
+    .qr-type { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .qr-type button { padding:.45rem 1rem; border-radius:2rem; border:1.5px solid var(--border); background:transparent; color:var(--text); cursor:pointer; font-size:.8rem; transition:all .2s; }
+    .qr-type button.active { background:var(--accent); border-color:var(--accent); color:#000; font-weight:600; }
+    .qr-opts { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-bottom:1rem; }
+    .qr-opts label { font-size:.8rem; color:var(--text-muted); display:block; margin-bottom:.3rem; }
+    .qr-opts input[type=color] { width:100%; height:36px; border-radius:.5rem; border:1.5px solid var(--border); padding:2px; background:var(--bg); cursor:pointer; }
+    .qr-opts input[type=range] { width:100%; accent-color:var(--accent); }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc‑<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile"><a href="../index.html">Home</a><a href="../index.html#tools">Tools</a></div>
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">📱</div>
+  <h1>QR Code Generator</h1>
+  <p>Generate QR codes for URLs, text, email, and more — download as PNG instantly.</p>
+</div>
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span><a href="../index.html#tools">Tools</a><span>›</span><span>QR Code Generator</span>
+    </div>
+    <div class="tool-workspace">
+      <h2>📱 QR Code Generator</h2>
+      <div class="qr-type">
+        <button class="active" onclick="setType('url',this)">🔗 URL</button>
+        <button onclick="setType('text',this)">📝 Text</button>
+        <button onclick="setType('email',this)">📧 Email</button>
+        <button onclick="setType('phone',this)">📞 Phone</button>
+        <button onclick="setType('sms',this)">💬 SMS</button>
+        <button onclick="setType('wifi',this)">📶 WiFi</button>
+      </div>
+      <div class="qr-wrap">
+        <div class="qr-controls">
+          <div id="input-area">
+            <input class="qr-input" id="main-input" type="url" placeholder="https://example.com" oninput="generate()"/>
+          </div>
+          <div class="qr-opts">
+            <div>
+              <label>Foreground Color</label>
+              <input type="color" id="fg" value="#000000" oninput="generate()"/>
+            </div>
+            <div>
+              <label>Background Color</label>
+              <input type="color" id="bg-col" value="#ffffff" oninput="generate()"/>
+            </div>
+            <div style="grid-column:1/-1">
+              <label>Size: <span id="size-val">200</span>px</label>
+              <input type="range" id="size" min="100" max="400" value="200" oninput="document.getElementById('size-val').textContent=this.value;generate()"/>
+            </div>
+          </div>
+          <button class="btn" onclick="generate()">Generate QR</button>
+        </div>
+        <div class="qr-preview">
+          <div id="qr-display" style="min-width:200px;min-height:200px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:.85rem">QR code will appear here</div>
+          <button class="btn btn-outline" id="dl-btn" style="display:none" onclick="downloadQR()">⬇ Download PNG</button>
+        </div>
+      </div>
+    </div>
+    <div class="tool-seo">
+      <h2>About the QR Code Generator</h2>
+      <p>The <strong>Arc-Multi Tool QR Code Generator</strong> lets you create QR codes for any type of content — website URLs, plain text, email addresses, phone numbers, SMS messages, and even WiFi credentials. All generation happens in your browser using the QRCode.js library.</p>
+      <p>You can customize the <strong>foreground and background colors</strong> and the <strong>output size</strong>, then download the result as a high-quality PNG image — ready for print or digital use.</p>
+    </div>
+    <div class="tool-faq">
+      <h2>FAQ</h2>
+      <div class="faq-item">
+        <button class="faq-q">Are the QR codes free to use commercially?</button>
+        <div class="faq-a"><p>Yes! The generated QR codes are yours to use for any purpose — personal or commercial — with no restrictions or watermarks.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do QR codes expire?</button>
+        <div class="faq-a"><p>Static QR codes (like those generated here) never expire. They encode the data directly, so they work forever as long as the destination URL/content remains valid.</p></div>
+      </div>
+    </div>
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc‑<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools.</p></div>
+    <div class="footer__col"><h4>Categories</h4><a href="../index.html#tools">Document Helpers</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+<script>
+  let qrObj=null, currentType='url';
+  const templates = {
+    url: {placeholder:'https://example.com', type:'url', label:'Website URL'},
+    text: {placeholder:'Enter your text here...', type:'text', label:'Text Content'},
+    email: {placeholder:'you@example.com', type:'email', label:'Email Address'},
+    phone: {placeholder:'+1234567890', type:'tel', label:'Phone Number'},
+    sms: {placeholder:'Phone number + message', type:'text', label:'Phone Number'},
+    wifi: {placeholder:'SSID:password:WPA', type:'text', label:'WiFi Credentials (SSID:password:type)'}
+  };
+
+  function setType(type, btn) {
+    currentType = type;
+    document.querySelectorAll('.qr-type button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const t = templates[type];
+    const inp = document.getElementById('main-input');
+    inp.placeholder = t.placeholder;
+    inp.type = t.type;
+    inp.value = '';
+    document.getElementById('qr-display').innerHTML = '<span style="color:var(--text-muted);font-size:.85rem">QR code will appear here</span>';
+    document.getElementById('dl-btn').style.display='none';
+  }
+
+  function buildContent() {
+    const v = document.getElementById('main-input').value.trim();
+    if(!v) return '';
+    if(currentType==='email') return 'mailto:'+v;
+    if(currentType==='phone') return 'tel:'+v;
+    if(currentType==='sms') return 'sms:'+v;
+    if(currentType==='wifi') {
+      const parts=v.split(':');
+      return `WIFI:S:${parts[0]||''};T:${parts[2]||'WPA'};P:${parts[1]||''};;`;
+    }
+    return v;
+  }
+
+  function generate() {
+    const content = buildContent();
+    if(!content) return;
+    const size = +document.getElementById('size').value;
+    const fg = document.getElementById('fg').value;
+    const bg = document.getElementById('bg-col').value;
+    const display = document.getElementById('qr-display');
+    display.innerHTML = '';
+    try {
+      qrObj = new QRCode(display, {text:content, width:size, height:size, colorDark:fg, colorLight:bg, correctLevel:QRCode.CorrectLevel.M});
+      document.getElementById('dl-btn').style.display='block';
+    } catch(e) { display.innerHTML='<span style="color:#ef4444">Error generating QR — check your input.</span>'; }
+  }
+
+  function downloadQR() {
+    const canvas = document.querySelector('#qr-display canvas');
+    if(!canvas) return;
+    const a=document.createElement('a'); a.download='qrcode.png'; a.href=canvas.toDataURL(); a.click();
+  }
+</script>
+</body>
+</html>

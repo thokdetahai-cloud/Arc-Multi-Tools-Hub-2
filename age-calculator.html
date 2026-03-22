@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Age Calculator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Free online age calculator — Calculate your exact age in years, months, days, hours and minutes. No login required. Works in your browser."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>"/>
+  <style>
+    .age-inputs { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.5rem; }
+    .age-inputs label { display:block; font-size:.85rem; color:var(--text-muted); margin-bottom:.4rem; }
+    .age-inputs input { width:100%; padding:.75rem 1rem; border-radius:.75rem; border:1.5px solid var(--border); background:var(--bg-card); color:var(--text); font-size:1rem; transition:border-color .2s; }
+    .age-inputs input:focus { outline:none; border-color:var(--accent); }
+    .age-result { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .age-stat { background:var(--bg); border:1.5px solid var(--border); border-radius:1rem; padding:1.25rem; text-align:center; }
+    .age-stat__num { font-size:2rem; font-weight:700; color:var(--accent); font-family:'Clash Display',sans-serif; }
+    .age-stat__label { font-size:.8rem; color:var(--text-muted); margin-top:.25rem; }
+    .age-btn { width:100%; margin-top:0; }
+    @media(max-width:500px){.age-inputs{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc‑<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <a href="../disclaimer.html">Disclaimer</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a>
+  <a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a>
+  <a href="../contact.html">Contact</a>
+  <a href="../privacy-policy.html">Privacy Policy</a>
+  <a href="../disclaimer.html">Disclaimer</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🎂</div>
+  <h1>Age Calculator</h1>
+  <p>Calculate your exact age in years, months, days, hours and minutes — instantly.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Age Calculator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🎂 Age Calculator</h2>
+      <div class="age-inputs">
+        <div>
+          <label>Your Date of Birth</label>
+          <input type="date" id="dob" max=""/>
+        </div>
+        <div>
+          <label>Calculate Age On</label>
+          <input type="date" id="ref"/>
+        </div>
+      </div>
+      <button class="btn age-btn" onclick="calcAge()">Calculate Age</button>
+
+      <div class="age-result" id="result" style="display:none">
+        <div class="age-stat"><div class="age-stat__num" id="r-years">0</div><div class="age-stat__label">Years</div></div>
+        <div class="age-stat"><div class="age-stat__num" id="r-months">0</div><div class="age-stat__label">Months</div></div>
+        <div class="age-stat"><div class="age-stat__num" id="r-days">0</div><div class="age-stat__label">Days</div></div>
+        <div class="age-stat"><div class="age-stat__num" id="r-hours">0</div><div class="age-stat__label">Hours</div></div>
+        <div class="age-stat"><div class="age-stat__num" id="r-mins">0</div><div class="age-stat__label">Minutes</div></div>
+        <div class="age-stat"><div class="age-stat__num" id="r-total">0</div><div class="age-stat__label">Total Days</div></div>
+      </div>
+      <p id="err" style="color:#f97316;margin-top:1rem;display:none">Please enter a valid date of birth.</p>
+    </div>
+
+    <div class="tool-seo">
+      <h2>About the Age Calculator</h2>
+      <p>The <strong>Arc-Multi Tool Age Calculator</strong> is a free, browser-based tool that instantly calculates your exact age from your date of birth to any reference date. There's no signup, no ads, and all computation happens right in your browser — your data never leaves your device.</p>
+      <p>Whether you're calculating age for a birthday, legal verification, school admission, or just curiosity, this tool gives you a breakdown across <strong>years, months, days, hours, and minutes</strong>. You can also set a custom reference date — perfect for calculating someone's age on a specific past or future date.</p>
+      <h3>How to Use</h3>
+      <p>1. Enter your date of birth using the date picker.<br>2. Optionally change the "Calculate Age On" date (defaults to today).<br>3. Click <strong>Calculate Age</strong> to see the result instantly.</p>
+      <h3>Why Use This Tool?</h3>
+      <p>Manual age calculation is error-prone, especially across leap years or month boundaries. This tool handles all edge cases automatically and gives you a precise breakdown — including the total number of days you've been alive.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <button class="faq-q">Is the Age Calculator free to use?</button>
+        <div class="faq-a"><p>Yes, completely free. No registration, no subscription, no limits.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is my data stored anywhere?</button>
+        <div class="faq-a"><p>No. All calculations happen locally in your browser. We never collect or store your birth date or any personal information.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I calculate someone's age on a future date?</button>
+        <div class="faq-a"><p>Yes! Simply set the "Calculate Age On" field to any future date to see the projected age.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <div class="footer__logo">Arc‑<span>multi</span> Tool</div>
+      <p class="footer__desc">100+ free browser-based tools. No login. No data collection. Just tools that work.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Categories</h4>
+      <a href="../index.html#tools">Calculator Tools</a>
+      <a href="../index.html#tools">Text Tools</a>
+      <a href="../index.html#tools">Image Tools</a>
+      <a href="../index.html#tools">PDF Tools</a>
+      <a href="../index.html#tools">Design Tools</a>
+    </div>
+    <div class="footer__col">
+      <h4>Quick Links</h4>
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+    <div class="footer__col">
+      <h4>Legal</h4>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <a href="../disclaimer.html">Disclaimer</a>
+    </div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+<script>
+  // Set default dates
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('ref').value = today;
+  document.getElementById('ref').max = today;
+  document.getElementById('dob').max = today;
+
+  function calcAge() {
+    const dob = new Date(document.getElementById('dob').value);
+    const ref = new Date(document.getElementById('ref').value);
+    const err = document.getElementById('err');
+    const result = document.getElementById('result');
+
+    if (!document.getElementById('dob').value || dob > ref) {
+      err.style.display = 'block'; result.style.display = 'none'; return;
+    }
+    err.style.display = 'none';
+
+    let years = ref.getFullYear() - dob.getFullYear();
+    let months = ref.getMonth() - dob.getMonth();
+    let days = ref.getDate() - dob.getDate();
+
+    if (days < 0) { months--; const prev = new Date(ref.getFullYear(), ref.getMonth(), 0); days += prev.getDate(); }
+    if (months < 0) { years--; months += 12; }
+
+    const totalMs = ref - dob;
+    const totalDays = Math.floor(totalMs / 86400000);
+    const totalHours = Math.floor(totalMs / 3600000);
+    const totalMins = Math.floor(totalMs / 60000);
+
+    document.getElementById('r-years').textContent = years;
+    document.getElementById('r-months').textContent = months;
+    document.getElementById('r-days').textContent = days;
+    document.getElementById('r-hours').textContent = totalHours.toLocaleString();
+    document.getElementById('r-mins').textContent = totalMins.toLocaleString();
+    document.getElementById('r-total').textContent = totalDays.toLocaleString();
+    result.style.display = 'grid';
+  }
+</script>
+</body>
+</html>

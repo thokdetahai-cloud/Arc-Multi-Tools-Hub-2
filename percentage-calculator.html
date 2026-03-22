@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Percentage Calculator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Free percentage calculator — calculate percentages, percentage changes, discount amounts, and more. Browser-based, no login."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .pc-card { background:var(--bg); border:1.5px solid var(--border); border-radius:1rem; padding:1.5rem; margin-bottom:1.25rem; }
+    .pc-card h3 { margin:0 0 1rem; font-size:1rem; color:var(--text-muted); font-weight:600; }
+    .pc-row { display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; margin-bottom:.75rem; }
+    .pc-row input { flex:1; min-width:100px; padding:.65rem 1rem; border-radius:.75rem; border:1.5px solid var(--border); background:var(--bg-card); color:var(--text); font-size:1rem; }
+    .pc-row input:focus { outline:none; border-color:var(--accent); }
+    .pc-row span { color:var(--text-muted); font-size:.9rem; }
+    .pc-ans { font-size:1.5rem; font-weight:700; color:var(--accent); margin-top:.5rem; min-height:2rem; }
+    .pc-btn { padding:.55rem 1.25rem; border-radius:.75rem; border:1.5px solid var(--accent); background:transparent; color:var(--accent); cursor:pointer; font-size:.85rem; transition:all .2s; }
+    .pc-btn:hover { background:var(--accent); color:#000; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc‑<span>multi</span> Tool</a>
+    <div class="navbar__nav"><a href="../index.html">Home</a><a href="../index.html#tools">Tools</a><a href="../about.html">About</a></div>
+    <div class="navbar__actions">
+      <button class="theme-toggle">☀️</button>
+      <button class="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile"><a href="../index.html">Home</a><a href="../index.html#tools">Tools</a></div>
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">%</div>
+  <h1>Percentage Calculator</h1>
+  <p>Calculate percentages, discounts, percentage changes, and more — instantly.</p>
+</div>
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb"><a href="../index.html">Home</a><span>›</span><a href="../index.html#tools">Tools</a><span>›</span><span>Percentage Calculator</span></div>
+    <div class="tool-workspace">
+      <h2>% Percentage Calculator</h2>
+
+      <div class="pc-card">
+        <h3>📌 What is X% of Y?</h3>
+        <div class="pc-row">
+          <input type="number" id="p1a" placeholder="X (%)"/> <span>% of</span>
+          <input type="number" id="p1b" placeholder="Y"/>
+          <button class="pc-btn" onclick="calc1()">= ?</button>
+        </div>
+        <div class="pc-ans" id="a1"></div>
+      </div>
+
+      <div class="pc-card">
+        <h3>📌 X is what % of Y?</h3>
+        <div class="pc-row">
+          <input type="number" id="p2a" placeholder="X"/> <span>is what % of</span>
+          <input type="number" id="p2b" placeholder="Y"/>
+          <button class="pc-btn" onclick="calc2()">= ?</button>
+        </div>
+        <div class="pc-ans" id="a2"></div>
+      </div>
+
+      <div class="pc-card">
+        <h3>📌 Percentage Change (from X to Y)</h3>
+        <div class="pc-row">
+          <span>From</span><input type="number" id="p3a" placeholder="Original value"/>
+          <span>to</span><input type="number" id="p3b" placeholder="New value"/>
+          <button class="pc-btn" onclick="calc3()">= ?</button>
+        </div>
+        <div class="pc-ans" id="a3"></div>
+      </div>
+
+      <div class="pc-card">
+        <h3>📌 Discount: X% off Y</h3>
+        <div class="pc-row">
+          <input type="number" id="p4a" placeholder="Discount %"/> <span>% off</span>
+          <input type="number" id="p4b" placeholder="Original price"/>
+          <button class="pc-btn" onclick="calc4()">= ?</button>
+        </div>
+        <div class="pc-ans" id="a4"></div>
+      </div>
+    </div>
+
+    <div class="tool-seo">
+      <h2>About the Percentage Calculator</h2>
+      <p>This <strong>free online percentage calculator</strong> handles all the most common percentage calculations: finding a percentage of a number, determining what percentage one number is of another, calculating percentage change between two values, and computing discount amounts.</p>
+    </div>
+    <div class="tool-faq">
+      <h2>FAQ</h2>
+      <div class="faq-item">
+        <button class="faq-q">How do I calculate percentage increase?</button>
+        <div class="faq-a"><p>Use the "Percentage Change" section. Enter the original value in the "From" box and the new value in "To". A positive result means increase, negative means decrease.</p></div>
+      </div>
+    </div>
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc‑<span>multi</span> Tool</div><p class="footer__desc">100+ free tools.</p></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+<script>
+  const fmt = n => isNaN(n)||!isFinite(n) ? 'Invalid input' : (Math.round(n*100)/100).toLocaleString();
+  function calc1(){const x=+document.getElementById('p1a').value,y=+document.getElementById('p1b').value;document.getElementById('a1').textContent=(x/100*y)+' ('+fmt(x/100*y)+')';}
+  function calc2(){const x=+document.getElementById('p2a').value,y=+document.getElementById('p2b').value;document.getElementById('a2').textContent=fmt((x/y)*100)+'%';}
+  function calc3(){const x=+document.getElementById('p3a').value,y=+document.getElementById('p3b').value;const c=((y-x)/Math.abs(x))*100;document.getElementById('a3').textContent=(c>=0?'+':'')+fmt(c)+'% '+(c>=0?'increase':'decrease');}
+  function calc4(){const p=+document.getElementById('p4a').value,y=+document.getElementById('p4b').value;const disc=y*p/100;document.getElementById('a4').textContent='Save: '+fmt(disc)+' → Final: '+fmt(y-disc);}
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Leap Year Checker — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Check if any year is a leap year and see the next/previous leap years. Free, instant."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🗓</div>
+  <h1>Leap Year Checker</h1>
+  <p>Check if any year is a leap year and see the next/previous leap years. Free, instant.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Leap Year Checker</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🗓 Leap Year Checker</h2>
+      
+<div class="t-row"><label>Year</label><input type="number" id="ly-year" placeholder="e.g. 2024" oninput="checkLeap()"/></div>
+<div id="ly-res" style="margin-top:1rem"></div>
+<div style="margin-top:1.5rem">
+  <h3 style="font-size:1rem;margin-bottom:.75rem">Upcoming Leap Years</h3>
+  <div id="ly-upcoming" style="display:flex;gap:.5rem;flex-wrap:wrap"></div>
+</div>
+<script>
+function isLeap(y){return (y%4===0&&y%100!==0)||y%400===0;}
+function checkLeap(){
+  const y=+document.getElementById('ly-year').value;
+  const res=document.getElementById('ly-res');
+  if(!y){res.innerHTML='';return;}
+  const leap=isLeap(y);
+  res.innerHTML=\`<div class="t-result" style="text-align:center;font-size:1.5rem;font-weight:700;color:\${leap?'var(--accent)':'#ef4444'}">\${y} is \${leap?'':'NOT '}a Leap Year \${leap?'✅':'❌'}</div>\`;
+}
+// Upcoming leap years
+const now=new Date().getFullYear();
+const upcoming=[];
+for(let y=now;upcoming.length<10;y++){if(isLeap(y))upcoming.push(y);}
+document.getElementById('ly-upcoming').innerHTML=upcoming.map(y=>\`<span style="padding:.4rem 1rem;border-radius:2rem;border:1.5px solid var(--border);font-size:.85rem;\${y===now?'background:var(--accent);color:#000;font-weight:600':''}">\${y}</span>\`).join('');
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Leap Year Checker</h2>
+      <p>A <strong>leap year</strong> has 366 days instead of 365, with February 29 added. The rules: a year is a leap year if divisible by 4, <em>except</em> century years must be divisible by 400. So 2000 was a leap year, but 1900 was not. This correction keeps the calendar aligned with Earth's orbit.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Why do we need leap years?</button>
+        <div class="faq-a"><p>Earth takes approximately 365.25 days to orbit the Sun. Without leap years, our calendar would drift by about 6 hours each year — causing seasons to shift over centuries.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">When is the next leap year?</button>
+        <div class="faq-a"><p>Leap years occur every 4 years: 2024, 2028, 2032... unless it's a century not divisible by 400 (like 2100, which is not a leap year).</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Date & Time Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

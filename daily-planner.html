@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Daily Planner — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Plan your day with time slots, tasks, and priorities. Save to browser. Print-friendly layout."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">📅</div>
+  <h1>Daily Planner</h1>
+  <p>Plan your day with time slots, tasks, and priorities. Save to browser. Print-friendly layout.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Daily Planner</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>📅 Daily Planner</h2>
+      
+<div style="display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center">
+  <span style="font-weight:700;font-size:1.1rem" id="dp-date"></span>
+  <button class="btn btn-outline" style="font-size:.8rem" onclick="window.print()">🖨 Print</button>
+  <button class="btn btn-outline" style="font-size:.8rem" onclick="clearDay()">Clear Day</button>
+</div>
+<div style="display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap">
+  <select id="dp-priority" style="padding:.5rem;border-radius:.65rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text)">
+    <option value="🔴">🔴 High</option><option value="🟡">🟡 Medium</option><option value="🟢">🟢 Low</option>
+  </select>
+  <select id="dp-time" style="padding:.5rem;border-radius:.65rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text)">
+    <option value="">No time</option>
+  </select>
+  <input class="t-input" id="dp-task" placeholder="Add task..." style="margin:0;flex:1" onkeydown="if(event.key==='Enter')addTask()"/>
+  <button class="btn" onclick="addTask()">Add</button>
+</div>
+<div id="dp-list"></div>
+<div style="margin-top:2rem">
+  <h3 style="font-size:.9rem;color:var(--text-muted);margin-bottom:.75rem">📝 Today's Notes</h3>
+  <textarea class="t-textarea" id="dp-notes" placeholder="Meeting notes, reminders, ideas..." style="min-height:100px" oninput="saveNotes()"></textarea>
+</div>
+<style>@media print{.btn,.navbar,.footer,#dp-task,#dp-priority,#dp-time{display:none!important}}</style>
+<script>
+const KEY='arc-planner-'+new Date().toISOString().split('T')[0];
+let tasks=[];
+// Generate time options
+const sel=document.getElementById('dp-time');
+for(let h=6;h<24;h++){['00','30'].forEach(m=>{const opt=document.createElement('option');opt.value=`${String(h).padStart(2,'0')}:${m}`;opt.textContent=`${h>12?h-12:h}:${m} ${h>=12?'PM':'AM'}`;sel.appendChild(opt);});}
+document.getElementById('dp-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+function save(){localStorage.setItem(KEY,JSON.stringify(tasks));}
+function load(){try{tasks=JSON.parse(localStorage.getItem(KEY)||'[]');}catch{tasks=[];}const notes=localStorage.getItem(KEY+'-notes')||'';document.getElementById('dp-notes').value=notes;render();}
+function saveNotes(){localStorage.setItem(KEY+'-notes',document.getElementById('dp-notes').value);}
+function addTask(){
+  const text=document.getElementById('dp-task').value.trim();
+  if(!text) return;
+  tasks.push({id:Date.now(),text,priority:document.getElementById('dp-priority').value,time:document.getElementById('dp-time').value,done:false});
+  tasks.sort((a,b)=>a.time.localeCompare(b.time));
+  document.getElementById('dp-task').value='';save();render();
+}
+function toggle(id){tasks=tasks.map(t=>t.id===id?{...t,done:!t.done}:t);save();render();}
+function del(id){tasks=tasks.filter(t=>t.id!==id);save();render();}
+function clearDay(){if(confirm('Clear all tasks?')){tasks=[];save();render();}}
+function render(){
+  const done=tasks.filter(t=>t.done).length;
+  document.getElementById('dp-list').innerHTML=tasks.length?
+    `<div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">${done}/${tasks.length} complete</div>`+
+    tasks.map(t=>`<div style="display:flex;align-items:center;gap:.75rem;padding:.75rem;border-radius:.75rem;border:1.5px solid var(--border);margin-bottom:.4rem;background:${t.done?'transparent':'var(--bg)'}">
+      <input type="checkbox" ${t.done?'checked':''} onchange="toggle(${t.id})" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer"/>
+      ${t.priority}
+      ${t.time?`<span style="font-size:.75rem;color:var(--accent);font-family:monospace;min-width:44px">${t.time}</span>`:'<span style="min-width:44px"></span>'}
+      <span style="flex:1;text-decoration:${t.done?'line-through':''};color:${t.done?'var(--text-muted)':'var(--text)'}">${t.text}</span>
+      <button onclick="del(${t.id})" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:1rem;padding:0">×</button>
+    </div>`).join('')
+    :'<div style="text-align:center;color:var(--text-muted);padding:2rem;font-size:.9rem">No tasks for today. Add one above!</div>';
+}
+load();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Daily Planner</h2>
+      <p>The <strong>Daily Planner</strong> is a browser-based day organizer with time slots, priorities (High/Medium/Low), and a notes section. Tasks auto-sort by time and persist in localStorage for the current day. Use the Print button for a clean printed version. Each day starts fresh automatically.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Do tasks carry over to the next day?</button>
+        <div class="faq-a"><p>No — the planner is keyed to the current date, so each day starts fresh. This encourages daily planning rather than an accumulating backlog.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I print my daily plan?</button>
+        <div class="faq-a"><p>Yes — click the Print button. The interface elements hide automatically in print mode, leaving only your tasks and notes for a clean printout.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Productivity Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

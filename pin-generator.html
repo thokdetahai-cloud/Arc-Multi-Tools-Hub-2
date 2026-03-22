@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>PIN Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Generate secure random PINs of any length. Cryptographically random, browser-based, never stored."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🔢</div>
+  <h1>PIN Generator</h1>
+  <p>Generate secure random PINs of any length. Cryptographically random, browser-based, never stored.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>PIN Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🔢 PIN Generator</h2>
+      
+<div class="t-row"><label>PIN Length</label>
+  <select id="pin-len">
+    <option value="4">4 digits</option><option value="6" selected>6 digits</option>
+    <option value="8">8 digits</option><option value="10">10 digits</option>
+    <option value="12">12 digits</option>
+  </select>
+</div>
+<div class="t-row"><label>How many PINs</label><input type="number" id="pin-count" min="1" max="100" value="5"/></div>
+<button class="btn" style="width:100%;margin:.5rem 0" onclick="genPINs()">Generate PINs</button>
+<div id="pin-res" style="font-family:monospace;font-size:1.25rem;margin-top:1rem;line-height:2.5"></div>
+<button class="btn btn-outline" style="margin-top:.75rem" onclick="copyPINs()">Copy All PINs</button>
+<script>
+function genPINs(){
+  const len=+document.getElementById('pin-len').value;
+  const count=Math.min(100,+document.getElementById('pin-count').value||5);
+  const pins=[];
+  for(let i=0;i<count;i++){
+    const arr=new Uint32Array(len);
+    crypto.getRandomValues(arr);
+    pins.push(Array.from(arr).map(x=>x%10).join(''));
+  }
+  document.getElementById('pin-res').innerHTML=pins.map(p=>\`<div style="display:flex;align-items:center;gap:.75rem;border-bottom:1px solid var(--border);padding:.25rem 0">
+    <span style="flex:1;color:var(--accent);letter-spacing:.15em">\${p}</span>
+    <button onclick="navigator.clipboard.writeText('\${p}').then(()=>alert('Copied!'))" style="padding:.25rem .65rem;border-radius:.5rem;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;font-size:.75rem">Copy</button>
+  </div>\`).join('');
+  document.getElementById('pin-res')._pins=pins;
+}
+function copyPINs(){
+  const pins=document.getElementById('pin-res')._pins;
+  if(pins) navigator.clipboard.writeText(pins.join('\n')).then(()=>alert('All PINs copied!'));
+}
+genPINs();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About PIN Generator</h2>
+      <p>The <strong>PIN Generator</strong> creates cryptographically secure random PINs using your browser's <code>crypto.getRandomValues()</code> API. Each digit is independently random — the result is unpredictable and cannot be reproduced. Generate 4-12 digit PINs in bulk for testing, temporary passwords, ticket codes, or access codes.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Are these PINs truly random?</button>
+        <div class="faq-a"><p>Yes — we use the Web Crypto API, the same technology used in cryptographic applications. It's far more random than standard pseudo-random number generators.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Does anyone see my generated PINs?</button>
+        <div class="faq-a"><p>No — generation happens entirely in your browser. Nothing is sent to any server.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Security Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

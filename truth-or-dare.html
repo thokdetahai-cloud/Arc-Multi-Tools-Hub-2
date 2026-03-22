@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Truth or Dare — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Play Truth or Dare with random questions and dares. Fun for parties and group games. Free, instant."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🎪</div>
+  <h1>Truth or Dare</h1>
+  <p>Play Truth or Dare with random questions and dares. Fun for parties and group games. Free, instant.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Truth or Dare</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🎪 Truth or Dare</h2>
+      
+<div style="display:flex;gap:1rem;margin-bottom:1.5rem">
+  <button class="btn" style="flex:1;font-size:1.1rem" onclick="pick('truth')">🤔 Truth</button>
+  <button class="btn btn-outline" style="flex:1;font-size:1.1rem;border-color:#f97316;color:#f97316" onclick="pick('dare')">🎯 Dare</button>
+</div>
+<div class="t-row">
+  <label>Category</label>
+  <select id="tod-cat">
+    <option value="general">General</option>
+    <option value="fun">Fun &amp; Funny</option>
+    <option value="deep">Deep &amp; Thoughtful</option>
+  </select>
+</div>
+<div id="tod-res" style="text-align:center;margin-top:1.5rem;min-height:120px;display:flex;align-items:center;justify-content:center"></div>
+<script>
+const DATA={
+  truth:{
+    general:["What is your most embarrassing moment?","Have you ever lied to get out of trouble?","What's the biggest secret you've kept?","Who do you have a crush on?","What's the strangest dream you've had?","Have you ever cheated on a test?","What's something you've never told your parents?","What is your biggest fear?","Have you ever been caught doing something embarrassing?","What's the most childish thing you still do?"],
+    fun:["If you could swap lives with anyone for a day, who would it be?","What's the weirdest food combination you enjoy?","What's the silliest thing you've Googled?","What would be the worst superpower to have?","If animals could talk, which would be the rudest?","What's your go-to karaoke song?","What movie could you watch 100 times?","If your life was a movie, what genre would it be?","What's the most ridiculous thing you've argued about?","What's a useless talent you have?"],
+    deep:["What's the one thing you'd change about the world?","What do you think happens after we die?","When did you last cry and why?","What's your greatest regret?","If you had one year left to live, what would you do?","What's a belief you hold that most people disagree with?","What makes you feel most alive?","What's the hardest lesson you've learned?","If you could give your younger self advice, what would it be?","What's something you pretend to like but secretly don't?"],
+  },
+  dare:{
+    general:["Do your best impression of a celebrity for 30 seconds","Speak in an accent for the next 3 rounds","Text your crush 'hey' right now","Do 15 push-ups","Call a family member and sing Happy Birthday","Let someone post a photo to your social media","Eat a spoonful of hot sauce","Wear your clothes backwards for the next round","Speak only in questions for 2 minutes","Do your best runway walk across the room"],
+    fun:["Talk like a pirate for the next 2 rounds","Try to lick your elbow","Make up a rap about the person next to you","Do the worm on the floor","Act like a chicken for one minute","Attempt to juggle 3 items","Do your best robot dance","Speak backwards for the next round","Make a funny face and hold it for 30 seconds","Attempt to balance a book on your head for 1 minute"],
+    deep:["Share something you've never told anyone in this room","Compliment every person here genuinely","Say something kind to someone you've argued with recently","Share a goal you've been afraid to say out loud","Tell your biggest dream without laughing it off","Apologize to someone in the room if you need to","Share your most cherished memory","Tell everyone what you truly appreciate about them","Say something honest that you usually keep to yourself","Share what you'd say to your future self"],
+  }
+};
+function pick(type){
+  const cat=document.getElementById('tod-cat').value;
+  const pool=DATA[type][cat];
+  const item=pool[Math.floor(Math.random()*pool.length)];
+  const color=type==='truth'?'var(--accent)':'#f97316';
+  const label=type==='truth'?'🤔 TRUTH':'🎯 DARE';
+  document.getElementById('tod-res').innerHTML=
+    '<div><div style="font-size:.85rem;font-weight:600;color:'+color+';margin-bottom:.75rem;letter-spacing:.05em">'+label+'</div>'+
+    '<div style="font-size:1.2rem;font-weight:600;line-height:1.6;color:var(--text)">'+item+'</div></div>';
+}
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Truth or Dare</h2>
+      <p>The <strong>Truth or Dare Generator</strong> provides random truth questions and dares across three categories — General, Fun, and Deep & Thoughtful. Perfect for parties, team building events, sleepovers, or virtual hangouts. Click 'Truth' or 'Dare' to get a random prompt for the current player.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">How many questions/dares are included?</button>
+        <div class="faq-a"><p>Each category has 10 truths and 10 dares (30 total truths, 30 total dares) for variety. Every click picks randomly from the full pool.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is the content appropriate for all ages?</button>
+        <div class="faq-a"><p>The current content is suitable for teens and adults in social settings. The Deep category contains introspective questions — use your judgment for younger players.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Fun Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

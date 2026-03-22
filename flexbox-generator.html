@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Flexbox Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Visual CSS Flexbox layout builder. Learn and generate flexbox properties interactively."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">📐</div>
+  <h1>Flexbox Generator</h1>
+  <p>Visual CSS Flexbox layout builder. Learn and generate flexbox properties interactively.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Flexbox Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>📐 Flexbox Generator</h2>
+      
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;flex-wrap:wrap">
+  <div>
+    <h3 style="font-size:.9rem;margin-bottom:.75rem;color:var(--text-muted)">Container Properties</h3>
+    <div class="t-row"><label>flex-direction</label>
+      <select id="fb-dir" onchange="updateFB()">
+        <option value="row">row</option><option value="row-reverse">row-reverse</option>
+        <option value="column">column</option><option value="column-reverse">column-reverse</option>
+      </select>
+    </div>
+    <div class="t-row"><label>justify-content</label>
+      <select id="fb-jc" onchange="updateFB()">
+        <option value="flex-start">flex-start</option><option value="flex-end">flex-end</option>
+        <option value="center">center</option><option value="space-between">space-between</option>
+        <option value="space-around">space-around</option><option value="space-evenly">space-evenly</option>
+      </select>
+    </div>
+    <div class="t-row"><label>align-items</label>
+      <select id="fb-ai" onchange="updateFB()">
+        <option value="flex-start">flex-start</option><option value="flex-end">flex-end</option>
+        <option value="center">center</option><option value="stretch">stretch</option><option value="baseline">baseline</option>
+      </select>
+    </div>
+    <div class="t-row"><label>flex-wrap</label>
+      <select id="fb-wrap" onchange="updateFB()">
+        <option value="nowrap">nowrap</option><option value="wrap">wrap</option><option value="wrap-reverse">wrap-reverse</option>
+      </select>
+    </div>
+    <div class="t-row"><label>gap</label><input type="range" id="fb-gap" min="0" max="32" value="8" oninput="updateFB()"/><span id="fb-gv">8px</span></div>
+    <div class="t-row"><label>Items</label><input type="number" id="fb-count" min="1" max="12" value="5" oninput="updateFB()" style="width:60px;flex:0"/></div>
+  </div>
+  <div>
+    <h3 style="font-size:.9rem;margin-bottom:.75rem;color:var(--text-muted)">Live Preview</h3>
+    <div id="fb-preview" style="min-height:200px;background:var(--bg);border-radius:1rem;border:1.5px solid var(--accent);padding:1rem"></div>
+  </div>
+</div>
+<div class="t-code" id="fb-code" style="font-size:.72rem;white-space:pre-wrap;margin-top:1rem"></div>
+<button class="btn" style="margin-top:.75rem" onclick="navigator.clipboard.writeText(document.getElementById('fb-code').textContent).then(()=>alert('Copied!'))">Copy CSS</button>
+<script>
+const COLORS=['#00d4ff','#7c3aed','#f97316','#22c55e','#eab308','#ef4444','#ec4899','#14b8a6','#8b5cf6','#fb923c','#84cc16','#06b6d4'];
+function updateFB(){
+  const dir=document.getElementById('fb-dir').value;
+  const jc=document.getElementById('fb-jc').value;
+  const ai=document.getElementById('fb-ai').value;
+  const wrap=document.getElementById('fb-wrap').value;
+  const gap=document.getElementById('fb-gap').value;
+  const count=Math.min(12,Math.max(1,+document.getElementById('fb-count').value));
+  document.getElementById('fb-gv').textContent=gap+'px';
+  const preview=document.getElementById('fb-preview');
+  preview.style.cssText=`display:flex;flex-direction:${dir};justify-content:${jc};align-items:${ai};flex-wrap:${wrap};gap:${gap}px;min-height:200px;background:var(--bg);border-radius:1rem;border:1.5px solid var(--accent);padding:1rem`;
+  preview.innerHTML=Array.from({length:count},(_,i)=>`<div style="width:48px;height:48px;border-radius:.5rem;background:${COLORS[i%COLORS.length]};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0">${i+1}</div>`).join('');
+  document.getElementById('fb-code').textContent=`.container {
+  display: flex;
+  flex-direction: ${dir};
+  justify-content: ${jc};
+  align-items: ${ai};
+  flex-wrap: ${wrap};
+  gap: ${gap}px;
+}`;
+}
+updateFB();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Flexbox Generator</h2>
+      <p>The <strong>Flexbox Generator</strong> is an interactive visual playground for CSS Flexbox layouts. Change direction, alignment, wrapping, and spacing — and see the result in real time. The generated CSS is ready to copy. Great for learning how flexbox properties interact, or for quickly generating layout code without memorizing every property.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">What is the difference between justify-content and align-items?</button>
+        <div class="faq-a"><p>justify-content controls alignment along the main axis (horizontal in row direction). align-items controls alignment along the cross axis (vertical in row direction). Both flip when flex-direction is column.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">When should I use flexbox vs grid?</button>
+        <div class="faq-a"><p>Flexbox is ideal for 1D layouts (row OR column). CSS Grid is better for 2D layouts (rows AND columns simultaneously). Use the CSS Grid Generator for grid layouts.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Design Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

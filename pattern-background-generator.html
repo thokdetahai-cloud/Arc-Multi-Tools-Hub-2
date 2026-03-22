@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Pattern Background Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Generate seamless CSS background patterns — dots, lines, grid, checkers, and more. Copy CSS instantly."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🔲</div>
+  <h1>Pattern Background Generator</h1>
+  <p>Generate seamless CSS background patterns — dots, lines, grid, checkers, and more. Copy CSS instantly.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Pattern Background Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🔲 Pattern Background Generator</h2>
+      
+<div class="t-row"><label>Pattern</label>
+  <select id="pb-type" onchange="updatePB()">
+    <option value="dots">Dots</option>
+    <option value="grid">Grid</option>
+    <option value="lines-h">Horizontal Lines</option>
+    <option value="lines-v">Vertical Lines</option>
+    <option value="diagonal">Diagonal Lines</option>
+    <option value="checker">Checkerboard</option>
+    <option value="crosshatch">Crosshatch</option>
+  </select>
+</div>
+<div class="t-row"><label>Pattern Color</label><input type="color" id="pb-color" value="#00d4ff" oninput="updatePB()" style="width:50px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px"/></div>
+<div class="t-row"><label>Background</label><input type="color" id="pb-bg" value="#080f1a" oninput="updatePB()" style="width:50px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px"/></div>
+<div class="t-row"><label>Size</label><input type="range" id="pb-size" min="5" max="80" value="20" oninput="updatePB()"/><span id="pb-sv">20px</span></div>
+<div class="t-row"><label>Opacity</label><input type="range" id="pb-opacity" min="5" max="100" value="30" oninput="updatePB()"/><span id="pb-ov">30%</span></div>
+<div id="pb-preview" style="height:200px;border-radius:1rem;border:1.5px solid var(--border);margin:1rem 0;transition:.3s"></div>
+<div class="t-code" id="pb-code" style="font-size:.72rem;white-space:pre-wrap"></div>
+<button class="btn" style="margin-top:.75rem" onclick="navigator.clipboard.writeText(document.getElementById('pb-code').textContent).then(()=>alert('Copied!'))">Copy CSS</button>
+<script>
+function hex2rgba(hex,a){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return`rgba(${r},${g},${b},${a})`;}
+function updatePB(){
+  const type=document.getElementById('pb-type').value;
+  const color=document.getElementById('pb-color').value;
+  const bg=document.getElementById('pb-bg').value;
+  const size=document.getElementById('pb-size').value;
+  const opacity=document.getElementById('pb-opacity').value/100;
+  document.getElementById('pb-sv').textContent=size+'px';document.getElementById('pb-ov').textContent=Math.round(opacity*100)+'%';
+  const c=hex2rgba(color,opacity);
+  let css='';
+  if(type==='dots') css=`background-color:${bg};background-image:radial-gradient(${c} 1px,transparent 1px);background-size:${size}px ${size}px;`;
+  else if(type==='grid') css=`background-color:${bg};background-image:linear-gradient(${c} 1px,transparent 1px),linear-gradient(90deg,${c} 1px,transparent 1px);background-size:${size}px ${size}px;`;
+  else if(type==='lines-h') css=`background-color:${bg};background-image:linear-gradient(${c} 1px,transparent 1px);background-size:100% ${size}px;`;
+  else if(type==='lines-v') css=`background-color:${bg};background-image:linear-gradient(90deg,${c} 1px,transparent 1px);background-size:${size}px 100%;`;
+  else if(type==='diagonal') css=`background-color:${bg};background-image:repeating-linear-gradient(45deg,${c} 0,${c} 1px,transparent 0,transparent 50%);background-size:${size}px ${size}px;`;
+  else if(type==='checker') css=`background-color:${bg};background-image:repeating-conic-gradient(${c} 0% 25%,transparent 0% 50%);background-size:${size}px ${size}px;`;
+  else css=`background-color:${bg};background-image:repeating-linear-gradient(45deg,${c} 0,${c} 1px,transparent 0,transparent 50%),repeating-linear-gradient(-45deg,${c} 0,${c} 1px,transparent 0,transparent 50%);background-size:${size}px ${size}px;`;
+  document.getElementById('pb-preview').style.cssText=css+'border-radius:1rem;height:200px;border:1.5px solid var(--border)';
+  document.getElementById('pb-code').textContent=`.pattern-bg {
+  ${css.replace(/;/g,';
+  ').trim()}
+}`;
+}
+updatePB();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Pattern Background Generator</h2>
+      <p>The <strong>Pattern Background Generator</strong> creates seamless CSS background patterns using only CSS gradients — no images required. Choose from Dots, Grid, Horizontal Lines, Vertical Lines, Diagonal Lines, Checkerboard, and Crosshatch. Adjust color, background, size, and opacity. The patterns tile seamlessly and scale perfectly at any resolution.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Are these patterns image-free?</button>
+        <div class="faq-a"><p>Yes — all patterns use pure CSS gradient functions. They're scalable, lightweight, and require no external image files.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I combine these with other backgrounds?</button>
+        <div class="faq-a"><p>Yes — CSS backgrounds support multiple layers. Combine a pattern with a gradient by separating them with commas in the background-image property.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Design Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

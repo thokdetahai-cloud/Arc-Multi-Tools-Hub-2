@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>SVG Shape Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Generate SVG shapes — circles, polygons, stars, and custom paths. Copy the SVG code instantly."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">⬟</div>
+  <h1>SVG Shape Generator</h1>
+  <p>Generate SVG shapes — circles, polygons, stars, and custom paths. Copy the SVG code instantly.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>SVG Shape Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>⬟ SVG Shape Generator</h2>
+      
+<div class="t-row"><label>Shape</label>
+  <select id="sg-shape" onchange="updateShape()">
+    <option value="circle">Circle</option>
+    <option value="rect">Rectangle</option>
+    <option value="triangle">Triangle</option>
+    <option value="star">Star</option>
+    <option value="hexagon">Hexagon</option>
+    <option value="diamond">Diamond</option>
+    <option value="cross">Cross</option>
+    <option value="arrow">Arrow</option>
+  </select>
+</div>
+<div class="t-row"><label>Fill Color</label><input type="color" id="sg-fill" value="#00d4ff" oninput="updateShape()" style="width:50px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px"/></div>
+<div class="t-row"><label>Stroke Color</label><input type="color" id="sg-stroke" value="#7c3aed" oninput="updateShape()" style="width:50px;height:36px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px"/></div>
+<div class="t-row"><label>Stroke Width</label><input type="range" id="sg-sw" min="0" max="20" value="2" oninput="updateShape()"/><span id="sg-swv">2</span></div>
+<div class="t-row"><label>Size</label><input type="range" id="sg-size" min="50" max="250" value="150" oninput="updateShape()"/><span id="sg-sv">150</span></div>
+<div class="t-row"><label>Opacity</label><input type="range" id="sg-opacity" min="10" max="100" value="100" oninput="updateShape()"/><span id="sg-ov">100%</span></div>
+<div style="background:var(--bg);border-radius:1rem;border:1.5px solid var(--border);padding:2rem;display:flex;justify-content:center;margin:1rem 0">
+  <div id="sg-preview"></div>
+</div>
+<div class="t-code" id="sg-code" style="font-size:.72rem;white-space:pre-wrap"></div>
+<button class="btn" style="margin-top:.75rem" onclick="navigator.clipboard.writeText(document.getElementById('sg-code').textContent).then(()=>alert('Copied!'))">Copy SVG</button>
+<script>
+function star(cx,cy,r,n,ir){let p='';for(let i=0;i<n*2;i++){const a=(i*Math.PI/n)-Math.PI/2,rad=i%2===0?r:ir;p+=`${cx+rad*Math.cos(a)},${cy+rad*Math.sin(a)} `;}return p.trim();}
+function hex(cx,cy,r){return Array.from({length:6},(_,i)=>{const a=i*60*Math.PI/180-Math.PI/6;return`${cx+r*Math.cos(a)},${cy+r*Math.sin(a)}`;}).join(' ');}
+function updateShape(){
+  const shape=document.getElementById('sg-shape').value;
+  const fill=document.getElementById('sg-fill').value;
+  const stroke=document.getElementById('sg-stroke').value;
+  const sw=document.getElementById('sg-sw').value;
+  const size=+document.getElementById('sg-size').value;
+  const opacity=document.getElementById('sg-opacity').value/100;
+  document.getElementById('sg-swv').textContent=sw;document.getElementById('sg-sv').textContent=size;document.getElementById('sg-ov').textContent=Math.round(opacity*100)+'%';
+  const attrs=`fill="${fill}" stroke="${stroke}" stroke-width="${sw}" opacity="${opacity}"`;
+  const vb=size+40;const cx=vb/2,cy=vb/2,r=size/2;
+  let inner='';
+  if(shape==='circle') inner=`<circle cx="${cx}" cy="${cy}" r="${r}" ${attrs}/>`;
+  else if(shape==='rect') inner=`<rect x="${(vb-size)/2}" y="${(vb-size)/2}" width="${size}" height="${size}" rx="8" ${attrs}/>`;
+  else if(shape==='triangle') inner=`<polygon points="${cx},${cy-r} ${cx+r},${cy+r} ${cx-r},${cy+r}" ${attrs}/>`;
+  else if(shape==='star') inner=`<polygon points="${star(cx,cy,r,5,r*0.4)}" ${attrs}/>`;
+  else if(shape==='hexagon') inner=`<polygon points="${hex(cx,cy,r)}" ${attrs}/>`;
+  else if(shape==='diamond') inner=`<polygon points="${cx},${cy-r} ${cx+r},${cy} ${cx},${cy+r} ${cx-r},${cy}" ${attrs}/>`;
+  else if(shape==='cross'){const t=r*0.35;inner=`<path d="M${cx-t},${cy-r} L${cx+t},${cy-r} L${cx+t},${cy-t} L${cx+r},${cy-t} L${cx+r},${cy+t} L${cx+t},${cy+t} L${cx+t},${cy+r} L${cx-t},${cy+r} L${cx-t},${cy+t} L${cx-r},${cy+t} L${cx-r},${cy-t} L${cx-t},${cy-t} Z" ${attrs}/>`;}
+  else inner=`<path d="M${cx-r},${cy} L${cx},${cy-r} L${cx+r},${cy} L${cx+r*0.6},${cy} L${cx+r*0.6},${cy+r} L${cx-r*0.6},${cy+r} L${cx-r*0.6},${cy} Z" ${attrs}/>`;
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vb} ${vb}" width="${vb}" height="${vb}">
+  ${inner}
+</svg>`;
+  document.getElementById('sg-preview').innerHTML=svg;
+  document.getElementById('sg-code').textContent=svg;
+}
+updateShape();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About SVG Shape Generator</h2>
+      <p>The <strong>SVG Shape Generator</strong> creates scalable vector graphics shapes — circles, rectangles, triangles, stars, hexagons, diamonds, crosses, and arrows — with custom fill color, stroke, size, and opacity. SVG shapes scale to any size without quality loss and are perfect for icons, logos, backgrounds, and data visualizations.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">Why use SVG instead of PNG?</button>
+        <div class="faq-a"><p>SVG is resolution-independent — it looks sharp at any size on any screen. It's also smaller in file size for simple shapes and can be animated with CSS or JavaScript.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I edit the SVG further?</button>
+        <div class="faq-a"><p>Yes — the copied SVG code is plain text. Open it in any vector editor (Inkscape, Figma, Illustrator) or edit the XML directly to add gradients, animations, or more shapes.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Design Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

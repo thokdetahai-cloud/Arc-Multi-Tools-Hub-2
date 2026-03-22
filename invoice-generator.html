@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Invoice Generator — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Create professional invoices with line items, totals, and tax. Download as printable HTML. Free."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">📄</div>
+  <h1>Invoice Generator</h1>
+  <p>Create professional invoices with line items, totals, and tax. Download as printable HTML. Free.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Invoice Generator</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>📄 Invoice Generator</h2>
+      
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+  <div>
+    <h3 style="font-size:.9rem;margin-bottom:.75rem;color:var(--text-muted)">From (Your Business)</h3>
+    <input class="t-input" id="inv-from-name" placeholder="Your Name / Business" value="Acme Design Co."/>
+    <input class="t-input" id="inv-from-addr" placeholder="Address" value="123 Main St, Mumbai 400001"/>
+    <input class="t-input" id="inv-from-email" placeholder="Email / Phone" value="hello@acme.com"/>
+  </div>
+  <div>
+    <h3 style="font-size:.9rem;margin-bottom:.75rem;color:var(--text-muted)">Bill To (Client)</h3>
+    <input class="t-input" id="inv-to-name" placeholder="Client Name / Company" value="Globex Corporation"/>
+    <input class="t-input" id="inv-to-addr" placeholder="Client Address" value="456 Park Ave, Delhi 110001"/>
+    <input class="t-input" id="inv-to-email" placeholder="Client Email" value="billing@globex.com"/>
+  </div>
+</div>
+<div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
+  <div class="t-row" style="flex:1"><label>Invoice #</label><input type="text" id="inv-num" value="INV-001"/></div>
+  <div class="t-row" style="flex:1"><label>Date</label><input type="date" id="inv-date"/></div>
+  <div class="t-row" style="flex:1"><label>Due Date</label><input type="date" id="inv-due"/></div>
+  <div class="t-row" style="flex:0 0 80px"><label>Tax (%)</label><input type="number" id="inv-tax" value="18" min="0" max="100" oninput="calcTotal()"/></div>
+</div>
+<h3 style="font-size:.9rem;margin-bottom:.75rem;color:var(--text-muted)">Line Items</h3>
+<div id="inv-items"></div>
+<button class="btn btn-outline" style="font-size:.85rem;margin-bottom:1.5rem" onclick="addItem()">+ Add Item</button>
+<div style="text-align:right;margin-bottom:1.5rem">
+  <div style="font-size:.9rem;color:var(--text-muted)">Subtotal: <strong id="inv-sub">0</strong></div>
+  <div style="font-size:.9rem;color:var(--text-muted)">Tax: <strong id="inv-tax-amt">0</strong></div>
+  <div style="font-size:1.2rem;font-weight:700;color:var(--accent);margin-top:.5rem">Total: <span id="inv-total">0</span></div>
+</div>
+<div class="t-row"><label>Notes</label><input type="text" id="inv-notes" placeholder="Payment terms, bank details, thank you message..." value="Payment due within 30 days. Thank you for your business!"/></div>
+<button class="btn" style="width:100%;margin-top:.5rem" onclick="downloadInvoice()">⬇ Download Invoice (HTML)</button>
+<script>
+let items=[{desc:'Web Design Services',qty:1,rate:15000},{desc:'Logo Design',qty:1,rate:8000}];
+document.getElementById('inv-date').value=new Date().toISOString().split('T')[0];
+const due=new Date();due.setDate(due.getDate()+30);document.getElementById('inv-due').value=due.toISOString().split('T')[0];
+function renderItems(){
+  document.getElementById('inv-items').innerHTML=items.map((item,i)=>`<div style="display:flex;gap:.5rem;margin-bottom:.5rem;align-items:center;flex-wrap:wrap">
+    <input class="t-input" value="${item.desc}" placeholder="Description" style="margin:0;flex:3;min-width:150px" oninput="items[${i}].desc=this.value;calcTotal()"/>
+    <input type="number" value="${item.qty}" placeholder="Qty" style="flex:0 0 60px;padding:.65rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text)" oninput="items[${i}].qty=+this.value;calcTotal()"/>
+    <input type="number" value="${item.rate}" placeholder="Rate" style="flex:1;min-width:80px;padding:.65rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text)" oninput="items[${i}].rate=+this.value;calcTotal()"/>
+    <span style="min-width:80px;text-align:right;font-weight:600" id="item-total-${i}">${(item.qty*item.rate).toLocaleString()}</span>
+    <button onclick="items.splice(${i},1);renderItems();calcTotal()" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:1.1rem">×</button>
+  </div>`).join('');
+}
+function addItem(){items.push({desc:'',qty:1,rate:0});renderItems();calcTotal();}
+function calcTotal(){
+  const sub=items.reduce((s,it)=>s+it.qty*it.rate,0);
+  const tax=+document.getElementById('inv-tax').value/100;
+  const taxAmt=sub*tax,total=sub+taxAmt;
+  document.getElementById('inv-sub').textContent=sub.toLocaleString();
+  document.getElementById('inv-tax-amt').textContent=taxAmt.toLocaleString();
+  document.getElementById('inv-total').textContent=total.toLocaleString();
+  items.forEach((it,i)=>{const el=document.getElementById('item-total-'+i);if(el)el.textContent=(it.qty*it.rate).toLocaleString();});
+}
+function downloadInvoice(){
+  const from=document.getElementById('inv-from-name').value;
+  const fromAddr=document.getElementById('inv-from-addr').value;
+  const fromEmail=document.getElementById('inv-from-email').value;
+  const to=document.getElementById('inv-to-name').value;
+  const toAddr=document.getElementById('inv-to-addr').value;
+  const toEmail=document.getElementById('inv-to-email').value;
+  const num=document.getElementById('inv-num').value;
+  const date=document.getElementById('inv-date').value;
+  const due=document.getElementById('inv-due').value;
+  const tax=+document.getElementById('inv-tax').value;
+  const notes=document.getElementById('inv-notes').value;
+  const sub=items.reduce((s,it)=>s+it.qty*it.rate,0);
+  const taxAmt=sub*tax/100,total=sub+taxAmt;
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Invoice ${num}</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;color:#222;padding:40px;max-width:800px;margin:auto}.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px}.logo{font-size:1.8rem;font-weight:700;color:#1a237e}.invoice-info{text-align:right;color:#666}.parties{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:40px}.party h3{font-size:.8rem;text-transform:uppercase;color:#666;margin-bottom:.5rem}.party strong{font-size:1.1rem}table{width:100%;border-collapse:collapse;margin-bottom:24px}th{background:#f5f5f5;padding:10px 12px;text-align:left;font-size:.8rem;text-transform:uppercase;color:#666}td{padding:10px 12px;border-bottom:1px solid #eee}.totals{margin-left:auto;width:260px}.total-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee}.total-final{display:flex;justify-content:space-between;padding:10px 0;font-size:1.2rem;font-weight:700;color:#1a237e}.notes{margin-top:32px;padding:16px;background:#f9f9f9;border-radius:8px;font-size:.85rem;color:#666}</style></head><body>
+<div class="header"><div><div class="logo">${from}</div><div style="color:#666;margin-top:.25rem;font-size:.9rem">${fromAddr}<br>${fromEmail}</div></div><div class="invoice-info"><div style="font-size:1.8rem;font-weight:700;color:#1a237e">INVOICE</div><div style="margin-top:.5rem"># ${num}</div><div>Date: ${date}</div><div>Due: ${due}</div></div></div>
+<div class="parties"><div class="party"><h3>From</h3><strong>${from}</strong><br><span style="color:#666;font-size:.9rem">${fromAddr}<br>${fromEmail}</span></div><div class="party"><h3>Bill To</h3><strong>${to}</strong><br><span style="color:#666;font-size:.9rem">${toAddr}<br>${toEmail}</span></div></div>
+<table><thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>${items.map(it=>`<tr><td>${it.desc}</td><td>${it.qty}</td><td>${it.rate.toLocaleString()}</td><td>${(it.qty*it.rate).toLocaleString()}</td></tr>`).join('')}</tbody></table>
+<div class="totals"><div class="total-row"><span>Subtotal</span><span>${sub.toLocaleString()}</span></div><div class="total-row"><span>Tax (${tax}%)</span><span>${taxAmt.toLocaleString()}</span></div><div class="total-final"><span>Total</span><span>${total.toLocaleString()}</span></div></div>
+${notes?`<div class="notes"><strong>Notes:</strong> ${notes}</div>`:''}
+</body></html>`;
+  const a=document.createElement('a');a.href='data:text/html;charset=utf-8,'+encodeURIComponent(html);a.download='invoice-'+num+'.html';a.click();
+}
+renderItems();calcTotal();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Invoice Generator</h2>
+      <p>The <strong>Invoice Generator</strong> creates professional invoices with your business info, client details, line items, automatic tax calculation, and notes. Download as an HTML file that you can open in any browser and print to PDF. Supports multiple line items with quantity and rate. No account or subscription required.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">How do I convert the HTML invoice to PDF?</button>
+        <div class="faq-a"><p>Open the downloaded HTML file in Chrome or Edge, then press Ctrl+P (Cmd+P on Mac) and choose 'Save as PDF'. This creates a professional-looking PDF invoice.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I add a logo to the invoice?</button>
+        <div class="faq-a"><p>The current tool uses a text-based header. To add an image logo, open the downloaded HTML file in a text editor and replace the logo div with an <img> tag pointing to your logo file.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Document Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

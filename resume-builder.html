@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Resume Builder — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Build a professional resume with customizable sections. Download as printable HTML. Free, instant."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">📋</div>
+  <h1>Resume Builder</h1>
+  <p>Build a professional resume with customizable sections. Download as printable HTML. Free, instant.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Resume Builder</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>📋 Resume Builder</h2>
+      
+<div style="display:flex;gap:1.5rem;flex-wrap:wrap">
+  <div style="flex:1;min-width:280px">
+    <h3 style="font-size:.9rem;color:var(--text-muted);margin-bottom:.75rem">Personal Info</h3>
+    <input class="t-input" id="rb-name" placeholder="Full Name" value="Jane Smith"/>
+    <input class="t-input" id="rb-title" placeholder="Job Title / Tagline" value="Senior Frontend Developer"/>
+    <input class="t-input" id="rb-email" placeholder="Email" value="jane@example.com"/>
+    <input class="t-input" id="rb-phone" placeholder="Phone" value="+91 98765 43210"/>
+    <input class="t-input" id="rb-location" placeholder="Location" value="Mumbai, India"/>
+    <input class="t-input" id="rb-linkedin" placeholder="LinkedIn / Portfolio URL"/>
+    <h3 style="font-size:.9rem;color:var(--text-muted);margin:.75rem 0">Summary</h3>
+    <textarea class="t-textarea" id="rb-summary" style="min-height:80px" placeholder="Professional summary...">5+ years building scalable web applications. Passionate about performance optimization and great user experiences.</textarea>
+    <h3 style="font-size:.9rem;color:var(--text-muted);margin:.75rem 0">Skills (comma-separated)</h3>
+    <textarea class="t-textarea" id="rb-skills" style="min-height:60px">React, TypeScript, Node.js, CSS, Git, Figma, REST APIs</textarea>
+    <h3 style="font-size:.9rem;color:var(--text-muted);margin:.75rem 0">Experience</h3>
+    <textarea class="t-textarea" id="rb-exp" style="min-height:140px" placeholder="Format: Job Title | Company | Duration | Description">Senior Developer | TechCorp | 2021–Present | Led a team of 4 engineers to rebuild the checkout flow, improving conversion by 23%.
+Frontend Developer | StartupXY | 2019–2021 | Built React dashboard used by 10,000+ daily users.</textarea>
+    <h3 style="font-size:.9rem;color:var(--text-muted);margin:.75rem 0">Education</h3>
+    <textarea class="t-textarea" id="rb-edu" style="min-height:80px" placeholder="Format: Degree | Institution | Year">B.Tech Computer Science | IIT Bombay | 2019</textarea>
+  </div>
+  <div style="flex:1;min-width:280px">
+    <h3 style="font-size:.9rem;color:var(--text-muted);margin-bottom:.75rem">Theme Color</h3>
+    <div style="display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap">
+      <input type="color" id="rb-color" value="#1a237e" oninput="updatePreview()" style="width:44px;height:44px;border-radius:.5rem;border:1.5px solid var(--border);padding:2px"/>
+      <button class="btn btn-outline" style="font-size:.8rem" onclick="updatePreview()">Refresh Preview</button>
+      <button class="btn" style="font-size:.8rem" onclick="downloadResume()">⬇ Download HTML</button>
+    </div>
+    <div id="rb-preview" style="background:#fff;color:#222;border-radius:.75rem;border:1.5px solid var(--border);overflow:hidden;font-size:.72rem;transform-origin:top left;max-height:600px;overflow-y:auto"></div>
+  </div>
+</div>
+<script>
+function g(id){return document.getElementById(id).value;}
+function updatePreview(){
+  const color=g('rb-color');
+  const skills=g('rb-skills').split(',').map(s=>s.trim()).filter(Boolean);
+  const exp=g('rb-exp').split('
+').filter(l=>l.trim()).map(l=>{const p=l.split('|');return p.length>=4?{title:p[0].trim(),company:p[1].trim(),duration:p[2].trim(),desc:p[3].trim()}:null;}).filter(Boolean);
+  const edu=g('rb-edu').split('
+').filter(l=>l.trim()).map(l=>{const p=l.split('|');return p.length>=3?{degree:p[0].trim(),inst:p[1].trim(),year:p[2].trim()}:null;}).filter(Boolean);
+  const html=buildHTML(color,skills,exp,edu);
+  document.getElementById('rb-preview').innerHTML=html;
+}
+function buildHTML(color,skills,exp,edu){
+  return`<div style="font-family:Arial,sans-serif;padding:24px;max-width:700px">
+<div style="border-bottom:3px solid ${color};padding-bottom:12px;margin-bottom:16px">
+<h1 style="color:${color};font-size:1.4rem;margin:0">${g('rb-name')}</h1>
+<div style="color:#666;font-size:.85rem;margin-top:2px">${g('rb-title')}</div>
+<div style="font-size:.75rem;color:#888;margin-top:4px">${[g('rb-email'),g('rb-phone'),g('rb-location'),g('rb-linkedin')].filter(Boolean).join(' · ')}</div>
+</div>
+${g('rb-summary')?`<div style="margin-bottom:14px"><h2 style="font-size:.85rem;text-transform:uppercase;color:${color};margin-bottom:4px">Summary</h2><p style="font-size:.8rem;line-height:1.5;color:#444">${g('rb-summary')}</p></div>`:''}
+${skills.length?`<div style="margin-bottom:14px"><h2 style="font-size:.85rem;text-transform:uppercase;color:${color};margin-bottom:6px">Skills</h2><div style="display:flex;flex-wrap:wrap;gap:4px">${skills.map(s=>`<span style="background:${color}15;color:${color};padding:2px 8px;border-radius:12px;font-size:.72rem;font-weight:600">${s}</span>`).join('')}</div></div>`:''}
+${exp.length?`<div style="margin-bottom:14px"><h2 style="font-size:.85rem;text-transform:uppercase;color:${color};margin-bottom:8px">Experience</h2>${exp.map(e=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between"><strong style="font-size:.8rem">${e.title}</strong><span style="font-size:.75rem;color:#888">${e.duration}</span></div><div style="color:${color};font-size:.75rem;margin-bottom:2px">${e.company}</div><p style="font-size:.75rem;color:#555;line-height:1.4">${e.desc}</p></div>`).join('')}</div>`:''}
+${edu.length?`<div><h2 style="font-size:.85rem;text-transform:uppercase;color:${color};margin-bottom:8px">Education</h2>${edu.map(e=>`<div style="display:flex;justify-content:space-between;margin-bottom:4px"><div><strong style="font-size:.8rem">${e.degree}</strong><div style="color:${color};font-size:.75rem">${e.inst}</div></div><span style="font-size:.75rem;color:#888">${e.year}</span></div>`).join('')}</div>`:''}
+</div>`;
+}
+function downloadResume(){
+  const color=g('rb-color');
+  const skills=g('rb-skills').split(',').map(s=>s.trim()).filter(Boolean);
+  const exp=g('rb-exp').split('
+').filter(l=>l.trim()).map(l=>{const p=l.split('|');return p.length>=4?{title:p[0].trim(),company:p[1].trim(),duration:p[2].trim(),desc:p[3].trim()}:null;}).filter(Boolean);
+  const edu=g('rb-edu').split('
+').filter(l=>l.trim()).map(l=>{const p=l.split('|');return p.length>=3?{degree:p[0].trim(),inst:p[1].trim(),year:p[2].trim()}:null;}).filter(Boolean);
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${g('rb-name')} Resume</title><style>@media print{body{margin:0;padding:0}}</style></head><body>${buildHTML(color,skills,exp,edu)}</body></html>`;
+  const a=document.createElement('a');a.href='data:text/html;charset=utf-8,'+encodeURIComponent(html);a.download=g('rb-name').replace(/\s+/g,'-')+'-resume.html';a.click();
+}
+updatePreview();
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Resume Builder</h2>
+      <p>The <strong>Resume Builder</strong> generates a professional one-page resume from your input — personal info, summary, skills, experience, and education. Choose an accent color, preview live, and download as an HTML file. Open the file in Chrome and print to PDF for a polished, ATS-friendly document.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">How do I convert the resume to PDF?</button>
+        <div class="faq-a"><p>Open the downloaded HTML file in Chrome or Edge, press Ctrl+P, select 'Save as PDF', and choose 'No margins' in More Settings for the cleanest output.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What is the experience format?</button>
+        <div class="faq-a"><p>Use: Job Title | Company | Duration | Description — with pipe characters separating each field. Each experience entry goes on a new line.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Document Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Dice Roller — Free Online Tool | Arc-Multi Tool</title>
+  <meta name="description" content="Roll virtual dice — D4, D6, D8, D10, D12, D20. Roll multiple dice and see total. Free, instant."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .t-input{width:100%;padding:.875rem 1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;margin-bottom:.75rem;}
+    .t-input:focus{outline:none;border-color:var(--accent);}
+    .t-textarea{width:100%;min-height:160px;padding:1rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.7;resize:vertical;font-family:'DM Sans',sans-serif;}
+    .t-textarea:focus{outline:none;border-color:var(--accent);}
+    .t-result{padding:1.25rem;border-radius:.875rem;border:1.5px solid var(--border);background:var(--bg);margin-top:1rem;font-size:1.05rem;}
+    .t-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center;}
+    .t-row label{font-size:.85rem;color:var(--text-muted);min-width:100px;}
+    .t-row input,.t-row select{flex:1;padding:.65rem 1rem;border-radius:.75rem;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);font-size:.95rem;}
+    .t-row input:focus,.t-row select:focus{outline:none;border-color:var(--accent);}
+    .t-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:1rem;}
+    .t-stat{background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;padding:1.1rem;text-align:center;}
+    .t-stat__num{font-size:1.75rem;font-weight:700;color:var(--accent);font-family:'Clash Display',sans-serif;}
+    .t-stat__lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+    .t-code{padding:1rem 1.25rem;border-radius:.875rem;background:var(--bg);border:1.5px solid var(--border);font-family:monospace;font-size:.875rem;word-break:break-all;color:var(--accent);margin-top:1rem;}
+    .t-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+    .t-btns .btn{flex:1;min-width:120px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="../index.html" class="navbar__logo">Arc&#8209;<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+      <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="../index.html">Home</a><a href="../index.html#tools">Tools</a>
+  <a href="../about.html">About</a><a href="../contact.html">Contact</a>
+</div>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:.75rem">🎲</div>
+  <h1>Dice Roller</h1>
+  <p>Roll virtual dice — D4, D6, D8, D10, D12, D20. Roll multiple dice and see total. Free, instant.</p>
+</div>
+
+<div class="tool-page">
+  <div class="tool-page-inner">
+    <div class="tool-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../index.html#tools">Tools</a><span>›</span>
+      <span>Dice Roller</span>
+    </div>
+
+    <div class="tool-workspace">
+      <h2>🎲 Dice Roller</h2>
+      
+<div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem">
+  <button class="btn" onclick="rollDie(4)">D4</button>
+  <button class="btn" onclick="rollDie(6)">D6</button>
+  <button class="btn" onclick="rollDie(8)">D8</button>
+  <button class="btn" onclick="rollDie(10)">D10</button>
+  <button class="btn" onclick="rollDie(12)">D12</button>
+  <button class="btn" onclick="rollDie(20)">D20</button>
+  <button class="btn" onclick="rollDie(100)">D100</button>
+</div>
+<div class="t-row">
+  <label>Custom die sides</label>
+  <input type="number" id="dr-sides" min="2" max="1000" value="6" style="width:80px;flex:0"/>
+  <label>Count</label>
+  <input type="number" id="dr-count" min="1" max="20" value="2" style="width:60px;flex:0"/>
+  <button class="btn btn-outline" onclick="rollCustom()">Roll Custom</button>
+</div>
+<div id="dr-res" style="margin-top:1.5rem;text-align:center"></div>
+<div id="dr-history" style="margin-top:1.5rem"></div>
+<script>
+const history=[];
+function rollDie(sides,count){
+  count=count||+document.getElementById('dr-count').value||1;
+  const rolls=Array.from({length:count},()=>Math.floor(Math.random()*sides)+1);
+  const total=rolls.reduce((s,r)=>s+r,0);
+  const avg=Math.round(total/count*10)/10;
+  showResult(sides,rolls,total,avg);
+}
+function rollCustom(){
+  const sides=+document.getElementById('dr-sides').value||6;
+  rollDie(sides);
+}
+function showResult(sides,rolls,total,avg){
+  const die=['⚀','⚁','⚂','⚃','⚄','⚅'];
+  document.getElementById('dr-res').innerHTML=
+    '<div style="font-size:3rem;margin-bottom:.5rem">'+rolls.map(r=>r<=6&&sides===6?die[r-1]:'🎲').join(' ')+'</div>'+
+    '<div style="font-size:3.5rem;font-weight:700;font-family:Clash Display,sans-serif;color:var(--accent)">'+total+'</div>'+
+    '<div style="font-size:.85rem;color:var(--text-muted)">'+rolls.join(' + ')+(rolls.length>1?' = '+total:'')+'</div>'+
+    (rolls.length>1?'<div style="font-size:.8rem;color:var(--text-muted);margin-top:.25rem">Avg: '+avg+'</div>':'');
+  history.unshift('D'+sides+' (x'+rolls.length+'): ['+rolls.join(', ')+'] = '+total);
+  if(history.length>10) history.pop();
+  document.getElementById('dr-history').innerHTML=history.length?
+    '<h3 style="font-size:.85rem;color:var(--text-muted);margin-bottom:.5rem">Roll History</h3>'+
+    history.map(h=>'<div style="font-size:.82rem;padding:.35rem 0;border-bottom:1px solid var(--border);color:var(--text-muted)">'+h+'</div>').join(''):'';
+}
+</script>
+
+    </div>
+
+    <div class="tool-seo">
+      <h2>About Dice Roller</h2>
+      <p>The <strong>Dice Roller</strong> simulates standard tabletop dice — D4, D6, D8, D10, D12, D20, and D100. You can also create custom dice with any number of sides. Roll multiple dice at once and see individual results, total, and average. Perfect for Dungeons & Dragons, board games, math activities, or making random decisions.</p>
+    </div>
+
+    <div class="tool-faq">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q">What does D20 mean?</button>
+        <div class="faq-a"><p>D20 means a 20-sided die. The 'D' stands for 'die' and the number is the number of faces. It's commonly used in tabletop RPGs like D&D.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is this roller fair?</button>
+        <div class="faq-a"><p>The roller uses JavaScript's Math.random() which generates uniformly distributed random numbers — every face has an equal probability of being rolled.</p></div>
+      </div>
+    </div>
+
+    <a href="../index.html" class="btn btn-outline" style="display:inline-block;margin-top:2rem">← Back to All Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col"><div class="footer__logo">Arc&#8209;<span>multi</span> Tool</div><p class="footer__desc">100+ free browser-based tools. No login. No data collection.</p></div>
+    <div class="footer__col"><h4>Tools</h4><a href="../index.html#tools">Fun Tools</a><a href="../index.html#tools">All Tools</a></div>
+    <div class="footer__col"><h4>Quick Links</h4><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <div class="footer__col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div>
+  </div>
+  <div class="footer__bottom"><p>© 2025 Arc-Multi Tool. All rights reserved.</p></div>
+</footer>
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../js/script.js"></script>
+</body>
+</html>
