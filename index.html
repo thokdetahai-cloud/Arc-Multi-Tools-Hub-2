@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Arc-Multi Tool — 100+ Free Online Tools for Everyone</title>
+  <meta name="description" content="Arc-Multi Tool offers 100+ free browser-based tools — calculators, text tools, image tools, PDF tools, design generators, and more. No login, no install, works offline."/>
+  <meta name="keywords" content="free online tools, calculator, text tools, image tools, PDF tools, design tools, productivity tools"/>
+  <meta property="og:title" content="Arc-Multi Tool — 100+ Free Online Tools"/>
+  <meta property="og:description" content="100+ free browser-based tools for everyone. No signup required."/>
+  <meta property="og:type" content="website"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"/>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__logo">Arc‑<span>multi</span> Tool</a>
+    <div class="navbar__nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="theme-toggle" title="Toggle theme">☀️</button>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="navbar__mobile">
+  <a href="index.html">Home</a>
+  <a href="index.html#tools">Tools</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="disclaimer.html">Disclaimer</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__content">
+    <div class="hero__badge">✦ Free · No Login · Browser-Based</div>
+    <h1>Your <em>All-in-One</em><br/>Online Tool Suite</h1>
+    <p class="hero__sub">100+ powerful tools for text, images, PDFs, design, calculations &amp; more — all free, all offline-capable, zero data sent to servers.</p>
+    <div class="hero__cta">
+      <a href="#tools" class="btn btn-primary">⚡ Explore 100+ Tools</a>
+      <a href="about.html" class="btn btn-outline">Learn More</a>
+    </div>
+    <div class="hero__stats">
+      <div class="hero__stat"><strong>100+</strong><span>Tools Available</span></div>
+      <div class="hero__stat"><strong>100%</strong><span>Free Forever</span></div>
+      <div class="hero__stat"><strong>0</strong><span>Login Required</span></div>
+      <div class="hero__stat"><strong>∞</strong><span>Uses Per Day</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="section" style="padding-top:3rem">
+  <div class="section-inner">
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">🔒</div>
+        <h3>100% Private</h3>
+        <p>All tools run in your browser. Your files and data never leave your device.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">⚡</div>
+        <h3>Blazing Fast</h3>
+        <p>No server round-trips. Instant results powered by client-side processing.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">📱</div>
+        <h3>Works Everywhere</h3>
+        <p>Fully responsive on mobile, tablet, and desktop. Works offline too.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon">🆓</div>
+        <h3>Always Free</h3>
+        <p>No subscriptions, no paywalls, no limits. Every tool is free to use forever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOOLS ===== -->
+<section class="section" id="tools">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <h2>All Tools</h2>
+      <p>Browse, search, and filter 100+ free tools across 10 categories</p>
+    </div>
+
+    <!-- Search -->
+    <div class="tools-search reveal">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search tools…" aria-label="Search tools"/>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="category-filter reveal">
+      <button class="cat-btn active" data-cat="all">All</button>
+      <button class="cat-btn" data-cat="calc">🧮 Calculators</button>
+      <button class="cat-btn" data-cat="text">✍️ Text</button>
+      <button class="cat-btn" data-cat="image">🖼️ Image</button>
+      <button class="cat-btn" data-cat="pdf">📄 PDF</button>
+      <button class="cat-btn" data-cat="design">🎨 Design</button>
+      <button class="cat-btn" data-cat="fun">🧠 Fun</button>
+      <button class="cat-btn" data-cat="health">💪 Health</button>
+      <button class="cat-btn" data-cat="productivity">⚙️ Productivity</button>
+      <button class="cat-btn" data-cat="datetime">📅 Date &amp; Time</button>
+      <button class="cat-btn" data-cat="security">🔐 Security</button>
+      <button class="cat-btn" data-cat="document">📁 Document</button>
+    </div>
+
+    <!-- Tool Cards Grid -->
+    <div class="tools-grid">
+
+      <!-- CALCULATOR TOOLS -->
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">🎂</div>
+        <div class="tool-card__name">Age Calculator</div>
+        <div class="tool-card__desc">Calculate your exact age in years, months, and days from your date of birth.</div>
+        <a href="tools/age-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">🏦</div>
+        <div class="tool-card__name">EMI Calculator</div>
+        <div class="tool-card__desc">Calculate monthly EMI for home, car, or personal loans instantly.</div>
+        <a href="tools/emi-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">%</div>
+        <div class="tool-card__name">Percentage Calculator</div>
+        <div class="tool-card__desc">Find percentage values, percentage change, and ratio calculations easily.</div>
+        <a href="tools/percentage-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">🏷️</div>
+        <div class="tool-card__name">Discount Calculator</div>
+        <div class="tool-card__desc">Quickly calculate the final price after applying any discount percentage.</div>
+        <a href="tools/discount-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">💰</div>
+        <div class="tool-card__name">Loan Calculator</div>
+        <div class="tool-card__desc">Compute loan repayments, interest totals, and amortization schedules.</div>
+        <a href="tools/loan-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">🧾</div>
+        <div class="tool-card__name">GST Calculator</div>
+        <div class="tool-card__desc">Add or remove GST from any amount with multiple rate options.</div>
+        <a href="tools/gst-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">📈</div>
+        <div class="tool-card__name">Profit &amp; Loss Calculator</div>
+        <div class="tool-card__desc">Determine profit, loss, and profit margin from cost and selling prices.</div>
+        <a href="tools/profit-loss-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">💵</div>
+        <div class="tool-card__name">Simple Interest Calculator</div>
+        <div class="tool-card__desc">Calculate simple interest on principal amount with rate and time.</div>
+        <a href="tools/simple-interest-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">📊</div>
+        <div class="tool-card__name">Compound Interest Calculator</div>
+        <div class="tool-card__desc">Compute compound interest with different compounding frequencies.</div>
+        <a href="tools/compound-interest-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="calc">
+        <div class="tool-card__icon icon-calc">⏱️</div>
+        <div class="tool-card__name">Time Duration Calculator</div>
+        <div class="tool-card__desc">Calculate the exact duration between two times in hours, minutes, and seconds.</div>
+        <a href="tools/time-duration-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- TEXT TOOLS -->
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">📝</div>
+        <div class="tool-card__name">Word Counter</div>
+        <div class="tool-card__desc">Count words, characters, sentences, and paragraphs in any text.</div>
+        <a href="tools/word-counter.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">🔢</div>
+        <div class="tool-card__name">Character Counter</div>
+        <div class="tool-card__desc">Count characters with and without spaces, ideal for SEO and social media.</div>
+        <a href="tools/character-counter.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">🔡</div>
+        <div class="tool-card__name">Case Converter</div>
+        <div class="tool-card__desc">Convert text to UPPERCASE, lowercase, Title Case, or camelCase instantly.</div>
+        <a href="tools/case-converter.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">✂️</div>
+        <div class="tool-card__name">Remove Extra Spaces</div>
+        <div class="tool-card__desc">Clean up extra whitespace and multiple spaces from any block of text.</div>
+        <a href="tools/remove-extra-spaces.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">🔄</div>
+        <div class="tool-card__name">Reverse Text Generator</div>
+        <div class="tool-card__desc">Reverse any text string, word order, or individual characters instantly.</div>
+        <a href="tools/reverse-text-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">🔤</div>
+        <div class="tool-card__name">Text Sorter</div>
+        <div class="tool-card__desc">Sort lines of text alphabetically, numerically, or in reverse order.</div>
+        <a href="tools/text-sorter.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">🗑️</div>
+        <div class="tool-card__name">Duplicate Line Remover</div>
+        <div class="tool-card__desc">Remove duplicate lines from text lists quickly and efficiently.</div>
+        <a href="tools/duplicate-line-remover.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">🔗</div>
+        <div class="tool-card__name">Text to Slug Generator</div>
+        <div class="tool-card__desc">Convert any text to a clean URL-friendly slug for SEO optimization.</div>
+        <a href="tools/text-to-slug.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">✨</div>
+        <div class="tool-card__name">Fancy Text Generator</div>
+        <div class="tool-card__desc">Create stylish fancy text with special Unicode characters and symbols.</div>
+        <a href="tools/fancy-text-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">🔬</div>
+        <div class="tool-card__name">Small Text Generator</div>
+        <div class="tool-card__desc">Convert your text into tiny superscript or subscript Unicode characters.</div>
+        <a href="tools/small-text-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- IMAGE TOOLS -->
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">🖼️</div>
+        <div class="tool-card__name">Image Resizer</div>
+        <div class="tool-card__desc">Resize images to any custom width and height while preserving quality.</div>
+        <a href="tools/image-resizer.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">📦</div>
+        <div class="tool-card__name">Image Compressor</div>
+        <div class="tool-card__desc">Compress images to reduce file size without visible quality loss.</div>
+        <a href="tools/image-compressor.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">✂️</div>
+        <div class="tool-card__name">Crop Image Tool</div>
+        <div class="tool-card__desc">Crop any image to custom dimensions or aspect ratios right in your browser.</div>
+        <a href="tools/crop-image.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">🔃</div>
+        <div class="tool-card__name">Rotate Image Tool</div>
+        <div class="tool-card__desc">Rotate images 90°, 180°, or 270° clockwise or counter-clockwise.</div>
+        <a href="tools/rotate-image.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">🔀</div>
+        <div class="tool-card__name">JPG to PNG Converter</div>
+        <div class="tool-card__desc">Convert JPG images to transparent-background PNG format instantly.</div>
+        <a href="tools/jpg-to-png.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">🔀</div>
+        <div class="tool-card__name">PNG to JPG Converter</div>
+        <div class="tool-card__desc">Convert PNG files to optimized JPG format for smaller file sizes.</div>
+        <a href="tools/png-to-jpg.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">🔤</div>
+        <div class="tool-card__name">Add Text to Image</div>
+        <div class="tool-card__desc">Overlay custom text, captions, or watermarks onto any image.</div>
+        <a href="tools/add-text-to-image.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">💻</div>
+        <div class="tool-card__name">Image to Base64</div>
+        <div class="tool-card__desc">Convert images to Base64 string for embedding in HTML or CSS.</div>
+        <a href="tools/image-to-base64.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">🌫️</div>
+        <div class="tool-card__name">Blur Image Tool</div>
+        <div class="tool-card__desc">Apply adjustable Gaussian blur to any image for privacy or artistic effect.</div>
+        <a href="tools/blur-image.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="image">
+        <div class="tool-card__icon icon-image">⬛</div>
+        <div class="tool-card__name">Black &amp; White Converter</div>
+        <div class="tool-card__desc">Convert color images to beautiful grayscale or black-and-white instantly.</div>
+        <a href="tools/bw-image-converter.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- PDF TOOLS -->
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">📄</div>
+        <div class="tool-card__name">Image to PDF Converter</div>
+        <div class="tool-card__desc">Convert JPG, PNG, and other images to PDF files quickly.</div>
+        <a href="tools/image-to-pdf.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">🔗</div>
+        <div class="tool-card__name">PDF Merge Tool</div>
+        <div class="tool-card__desc">Combine multiple PDF files into one single document easily.</div>
+        <a href="tools/pdf-merge.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">✂️</div>
+        <div class="tool-card__name">PDF Split Tool</div>
+        <div class="tool-card__desc">Split a large PDF into smaller separate documents by page range.</div>
+        <a href="tools/pdf-split.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">📑</div>
+        <div class="tool-card__name">PDF Page Extractor</div>
+        <div class="tool-card__desc">Extract specific pages from any PDF and save as a new document.</div>
+        <a href="tools/pdf-page-extractor.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">🔢</div>
+        <div class="tool-card__name">Add Page Number to PDF</div>
+        <div class="tool-card__desc">Automatically add page numbers to any PDF document in seconds.</div>
+        <a href="tools/add-page-number-pdf.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">🔃</div>
+        <div class="tool-card__name">Rotate PDF Pages</div>
+        <div class="tool-card__desc">Rotate PDF pages to the correct orientation — 90° or 180°.</div>
+        <a href="tools/rotate-pdf.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">🖼️</div>
+        <div class="tool-card__name">PDF to Image Converter</div>
+        <div class="tool-card__desc">Export PDF pages as high-quality JPG or PNG image files.</div>
+        <a href="tools/pdf-to-image.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">✍️</div>
+        <div class="tool-card__name">Signature Generator</div>
+        <div class="tool-card__desc">Create a stylish digital signature using your name or handwriting.</div>
+        <a href="tools/signature-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">📋</div>
+        <div class="tool-card__name">Resume Builder</div>
+        <div class="tool-card__desc">Build a professional resume online and export it as a PDF.</div>
+        <a href="tools/resume-builder.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="pdf">
+        <div class="tool-card__icon icon-pdf">🧾</div>
+        <div class="tool-card__name">Invoice Generator</div>
+        <div class="tool-card__desc">Create professional invoices and download them as PDF instantly.</div>
+        <a href="tools/invoice-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- DESIGN & CSS TOOLS -->
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🌈</div>
+        <div class="tool-card__name">CSS Gradient Generator</div>
+        <div class="tool-card__desc">Create beautiful linear and radial CSS gradients with live preview.</div>
+        <a href="tools/css-gradient-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🎨</div>
+        <div class="tool-card__name">Color Palette Generator</div>
+        <div class="tool-card__desc">Generate harmonious color palettes for your design projects.</div>
+        <a href="tools/color-palette-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🟦</div>
+        <div class="tool-card__name">Box Shadow Generator</div>
+        <div class="tool-card__desc">Visually create CSS box-shadow effects with real-time preview and code.</div>
+        <a href="tools/box-shadow-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">⬜</div>
+        <div class="tool-card__name">Border Radius Generator</div>
+        <div class="tool-card__desc">Generate CSS border-radius values with an interactive visual slider.</div>
+        <a href="tools/border-radius-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🔤</div>
+        <div class="tool-card__name">Text Shadow Generator</div>
+        <div class="tool-card__desc">Create stunning CSS text-shadow effects with live preview and copy code.</div>
+        <a href="tools/text-shadow-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🪟</div>
+        <div class="tool-card__name">Glassmorphism Generator</div>
+        <div class="tool-card__desc">Create trendy glassmorphism UI card effects with CSS backdrop-filter.</div>
+        <a href="tools/glassmorphism-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🌑</div>
+        <div class="tool-card__name">Neumorphism Generator</div>
+        <div class="tool-card__desc">Build soft-shadow neumorphism CSS components with ease.</div>
+        <a href="tools/neumorphism-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🔘</div>
+        <div class="tool-card__name">Button Generator</div>
+        <div class="tool-card__desc">Design custom CSS buttons with gradients, borders, and hover effects.</div>
+        <a href="tools/button-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">⏳</div>
+        <div class="tool-card__name">Loader Generator</div>
+        <div class="tool-card__desc">Generate CSS loading animations and spinners with customizable styles.</div>
+        <a href="tools/loader-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🔷</div>
+        <div class="tool-card__name">Favicon Generator</div>
+        <div class="tool-card__desc">Create favicons from text, emojis, or images for your website.</div>
+        <a href="tools/favicon-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- FUN & VIRAL TOOLS -->
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">❤️</div>
+        <div class="tool-card__name">Love Calculator</div>
+        <div class="tool-card__desc">Calculate your love compatibility score — just for fun!</div>
+        <a href="tools/love-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">💬</div>
+        <div class="tool-card__name">Fake Chat Generator</div>
+        <div class="tool-card__desc">Create realistic-looking fake chat screenshots for fun or memes.</div>
+        <a href="tools/fake-chat-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">🎲</div>
+        <div class="tool-card__name">Random Name Picker</div>
+        <div class="tool-card__desc">Pick a random name from your list — great for giveaways and classrooms.</div>
+        <a href="tools/random-name-picker.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">🏷️</div>
+        <div class="tool-card__name">Nickname Generator</div>
+        <div class="tool-card__desc">Generate fun and creative nicknames from any name.</div>
+        <a href="tools/nickname-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">🆔</div>
+        <div class="tool-card__name">Username Generator</div>
+        <div class="tool-card__desc">Create unique and catchy usernames for social media or gaming.</div>
+        <a href="tools/username-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">💭</div>
+        <div class="tool-card__name">Truth or Dare Generator</div>
+        <div class="tool-card__desc">Generate fun truth and dare questions for parties and games.</div>
+        <a href="tools/truth-or-dare.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">🎡</div>
+        <div class="tool-card__name">Random Picker Wheel</div>
+        <div class="tool-card__desc">Spin the wheel to randomly pick from your list of options.</div>
+        <a href="tools/random-picker-wheel.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">🔑</div>
+        <div class="tool-card__name">Password Generator</div>
+        <div class="tool-card__desc">Generate strong, random passwords with custom length and complexity.</div>
+        <a href="tools/password-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">🛡️</div>
+        <div class="tool-card__name">Password Strength Checker</div>
+        <div class="tool-card__desc">Test how strong your password is and get improvement suggestions.</div>
+        <a href="tools/password-strength-checker.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">📅</div>
+        <div class="tool-card__name">Daily Planner (Offline)</div>
+        <div class="tool-card__desc">Plan your day with tasks and priorities saved locally in your browser.</div>
+        <a href="tools/daily-planner.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- HEALTH CALCULATORS -->
+      <div class="tool-card" data-cat="health">
+        <div class="tool-card__icon icon-health">⚖️</div>
+        <div class="tool-card__name">BMI Calculator</div>
+        <div class="tool-card__desc">Calculate your Body Mass Index and check if you are in a healthy range.</div>
+        <a href="tools/bmi-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="health">
+        <div class="tool-card__icon icon-health">🔥</div>
+        <div class="tool-card__name">BMR Calculator</div>
+        <div class="tool-card__desc">Find your Basal Metabolic Rate — calories burned at rest per day.</div>
+        <a href="tools/bmr-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="health">
+        <div class="tool-card__icon icon-health">🥗</div>
+        <div class="tool-card__name">Calorie Needs Calculator</div>
+        <div class="tool-card__desc">Calculate your daily calorie needs based on age, weight, and activity level.</div>
+        <a href="tools/calorie-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="health">
+        <div class="tool-card__icon icon-health">💪</div>
+        <div class="tool-card__name">Body Fat Calculator</div>
+        <div class="tool-card__desc">Estimate your body fat percentage using standard measurement methods.</div>
+        <a href="tools/body-fat-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="health">
+        <div class="tool-card__icon icon-health">📏</div>
+        <div class="tool-card__name">Ideal Weight Calculator</div>
+        <div class="tool-card__desc">Find your ideal body weight range based on height and gender.</div>
+        <a href="tools/ideal-weight-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- PRODUCTIVITY TOOLS -->
+      <div class="tool-card" data-cat="productivity">
+        <div class="tool-card__icon icon-productivity">🍅</div>
+        <div class="tool-card__name">Pomodoro Timer</div>
+        <div class="tool-card__desc">Boost focus with a Pomodoro work timer — 25 mins work, 5 mins break.</div>
+        <a href="tools/pomodoro-timer.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="productivity">
+        <div class="tool-card__icon icon-productivity">✅</div>
+        <div class="tool-card__name">To-Do List</div>
+        <div class="tool-card__desc">Manage your tasks with a local-storage powered offline to-do list app.</div>
+        <a href="tools/todo-list.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="productivity">
+        <div class="tool-card__icon icon-productivity">🗒️</div>
+        <div class="tool-card__name">Notes Saver (Offline)</div>
+        <div class="tool-card__desc">Save and retrieve notes instantly, stored in your browser's local storage.</div>
+        <a href="tools/notes-saver.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="productivity">
+        <div class="tool-card__icon icon-productivity">📈</div>
+        <div class="tool-card__name">Habit Tracker</div>
+        <div class="tool-card__desc">Track your daily habits and build streaks with this offline tracker.</div>
+        <a href="tools/habit-tracker.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="productivity">
+        <div class="tool-card__icon icon-productivity">🎯</div>
+        <div class="tool-card__name">Daily Goal Tracker</div>
+        <div class="tool-card__desc">Set and track your daily goals with progress indicators saved locally.</div>
+        <a href="tools/daily-goal-tracker.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- DATE & TIME TOOLS -->
+      <div class="tool-card" data-cat="datetime">
+        <div class="tool-card__icon icon-datetime">📅</div>
+        <div class="tool-card__name">Age Difference Calculator</div>
+        <div class="tool-card__desc">Calculate the age difference between two people using their birthdates.</div>
+        <a href="tools/age-difference-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="datetime">
+        <div class="tool-card__icon icon-datetime">⏰</div>
+        <div class="tool-card__name">Countdown Timer</div>
+        <div class="tool-card__desc">Create a countdown to any future event or deadline with alerts.</div>
+        <a href="tools/countdown-timer.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="datetime">
+        <div class="tool-card__icon icon-datetime">💼</div>
+        <div class="tool-card__name">Work Days Calculator</div>
+        <div class="tool-card__desc">Calculate the number of working days between two dates, excluding weekends.</div>
+        <a href="tools/work-days-calculator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="datetime">
+        <div class="tool-card__icon icon-datetime">🗓️</div>
+        <div class="tool-card__name">Leap Year Checker</div>
+        <div class="tool-card__desc">Check if any year is a leap year with a simple and fast tool.</div>
+        <a href="tools/leap-year-checker.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="datetime">
+        <div class="tool-card__icon icon-datetime">🕐</div>
+        <div class="tool-card__name">Date Formatter Tool</div>
+        <div class="tool-card__desc">Format dates into any standard format — DD/MM/YYYY, ISO, Unix, and more.</div>
+        <a href="tools/date-formatter.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- TEXT ADVANCED -->
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">🔍</div>
+        <div class="tool-card__name">Text Compare (Diff)</div>
+        <div class="tool-card__desc">Compare two text blocks side-by-side and highlight the differences.</div>
+        <a href="tools/text-compare.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">📊</div>
+        <div class="tool-card__name">Keyword Density Checker</div>
+        <div class="tool-card__desc">Analyze keyword density in your text for better SEO optimization.</div>
+        <a href="tools/keyword-density.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">🗑️</div>
+        <div class="tool-card__name">Remove Duplicate Words</div>
+        <div class="tool-card__desc">Remove repeated words from a comma-separated list or a paragraph.</div>
+        <a href="tools/remove-duplicate-words.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">📝</div>
+        <div class="tool-card__name">Sentence Counter</div>
+        <div class="tool-card__desc">Count the number of sentences in any block of text automatically.</div>
+        <a href="tools/sentence-counter.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="text">
+        <div class="tool-card__icon icon-text">📄</div>
+        <div class="tool-card__name">Paragraph Counter</div>
+        <div class="tool-card__desc">Count paragraphs in your text and analyze reading structure.</div>
+        <a href="tools/paragraph-counter.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- SECURITY TOOLS -->
+      <div class="tool-card" data-cat="security">
+        <div class="tool-card__icon icon-security">🔢</div>
+        <div class="tool-card__name">PIN Generator</div>
+        <div class="tool-card__desc">Generate secure random PINs of any length for accounts or devices.</div>
+        <a href="tools/pin-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="security">
+        <div class="tool-card__icon icon-security">🔐</div>
+        <div class="tool-card__name">Passphrase Generator</div>
+        <div class="tool-card__desc">Generate memorable and strong passphrases using random word combinations.</div>
+        <a href="tools/passphrase-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="security">
+        <div class="tool-card__icon icon-security">#</div>
+        <div class="tool-card__name">Text Hash Generator</div>
+        <div class="tool-card__desc">Generate MD5, SHA-1, and SHA-256 hashes from any text string.</div>
+        <a href="tools/text-hash-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="security">
+        <div class="tool-card__icon icon-security">🆔</div>
+        <div class="tool-card__name">UUID Generator</div>
+        <div class="tool-card__desc">Generate version 4 UUIDs for use in databases and applications.</div>
+        <a href="tools/uuid-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="security">
+        <div class="tool-card__icon icon-security">🔑</div>
+        <div class="tool-card__name">Secure Token Generator</div>
+        <div class="tool-card__desc">Generate cryptographically secure random tokens for API keys and secrets.</div>
+        <a href="tools/secure-token-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- DESIGN EXTRA -->
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">✂️</div>
+        <div class="tool-card__name">CSS Clip Path Generator</div>
+        <div class="tool-card__desc">Create CSS clip-path shapes visually and copy the code instantly.</div>
+        <a href="tools/css-clip-path-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">⊞</div>
+        <div class="tool-card__name">CSS Grid Generator</div>
+        <div class="tool-card__desc">Design CSS grid layouts visually and export the CSS code.</div>
+        <a href="tools/css-grid-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">⬌</div>
+        <div class="tool-card__name">Flexbox Generator</div>
+        <div class="tool-card__desc">Configure CSS flexbox layouts interactively and copy the generated code.</div>
+        <a href="tools/flexbox-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🔷</div>
+        <div class="tool-card__name">SVG Shape Generator</div>
+        <div class="tool-card__desc">Generate clean SVG shapes and icons with custom colors and sizes.</div>
+        <a href="tools/svg-shape-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="design">
+        <div class="tool-card__icon icon-design">🎭</div>
+        <div class="tool-card__name">Pattern Background Generator</div>
+        <div class="tool-card__desc">Create CSS repeating pattern backgrounds for your websites.</div>
+        <a href="tools/pattern-background-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- DOCUMENT HELPERS -->
+      <div class="tool-card" data-cat="document">
+        <div class="tool-card__icon icon-document">📱</div>
+        <div class="tool-card__name">QR Code Generator</div>
+        <div class="tool-card__desc">Generate QR codes for URLs, text, contacts, and more — downloadable.</div>
+        <a href="tools/qr-code-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="document">
+        <div class="tool-card__icon icon-document">|||</div>
+        <div class="tool-card__name">Barcode Generator</div>
+        <div class="tool-card__desc">Create standard barcodes (Code128, EAN-13) from any text or number.</div>
+        <a href="tools/barcode-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="document">
+        <div class="tool-card__icon icon-document">📓</div>
+        <div class="tool-card__name">Online Notepad (Auto Save)</div>
+        <div class="tool-card__desc">An auto-saving notepad that keeps your notes in your browser safely.</div>
+        <a href="tools/online-notepad.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="document">
+        <div class="tool-card__icon icon-document">✍️</div>
+        <div class="tool-card__name">Text to Handwriting</div>
+        <div class="tool-card__desc">Convert your digital text into realistic handwriting style output.</div>
+        <a href="tools/text-to-handwriting.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="document">
+        <div class="tool-card__icon icon-document">🔎</div>
+        <div class="tool-card__name">PDF Metadata Viewer</div>
+        <div class="tool-card__desc">View hidden metadata like author, title, and creation date from any PDF.</div>
+        <a href="tools/pdf-metadata-viewer.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+      <!-- FUN EXTRA -->
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">🤔</div>
+        <div class="tool-card__name">Random Decision Maker</div>
+        <div class="tool-card__desc">Can't decide? Enter your options and let the tool decide for you!</div>
+        <a href="tools/random-decision-maker.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">🎨</div>
+        <div class="tool-card__name">Random Color Generator</div>
+        <div class="tool-card__desc">Generate random HEX, RGB, and HSL colors with one click.</div>
+        <a href="tools/random-color-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">✔️</div>
+        <div class="tool-card__name">Yes/No Decision Maker</div>
+        <div class="tool-card__desc">Ask any question and get a random Yes or No answer instantly.</div>
+        <a href="tools/yes-no-decision.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">😂</div>
+        <div class="tool-card__name">Random Emoji Generator</div>
+        <div class="tool-card__desc">Generate random emojis for social posts, messages, and creative fun.</div>
+        <a href="tools/random-emoji-generator.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+      <div class="tool-card" data-cat="fun">
+        <div class="tool-card__icon icon-fun">🎲</div>
+        <div class="tool-card__name">Dice Roller</div>
+        <div class="tool-card__desc">Roll virtual dice — D4, D6, D8, D10, D12, D20, and custom dice.</div>
+        <a href="tools/dice-roller.html" class="tool-card__btn">Use Tool →</a>
+      </div>
+
+    </div><!-- /tools-grid -->
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <h2>Frequently Asked Questions</h2>
+      <p>Everything you need to know about Arc-Multi Tool</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q">Are all tools on Arc-Multi Tool completely free? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes! Every single tool on Arc-Multi Tool is 100% free to use with no hidden charges, no premium plans, and no usage limits. We believe productivity tools should be accessible to everyone.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do I need to create an account or sign up? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No registration required. All tools work instantly without any login, signup, or email verification. Just open the tool and start using it immediately.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is my data safe? Do you store my files or inputs? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Absolutely. All tools run entirely in your browser using JavaScript. Your files, text, or data never leave your device and are never sent to any server. We have zero access to your data.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do these tools use any external APIs? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. Arc-Multi Tool does not use any third-party APIs for data processing. All calculations, conversions, and transformations happen locally in your browser with pure JavaScript.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I use these tools offline or without internet? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Most tools work offline after the initial page load since they are browser-based. Tools like productivity apps, calculators, and text tools require no active internet connection once the page is open.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How many tools are available on the platform? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">We currently offer 100+ tools across 11 categories including calculators, text tools, image tools, PDF tools, design generators, productivity tools, and more. We regularly add new tools based on user feedback.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Are these tools safe to use on mobile devices? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes! Arc-Multi Tool is fully responsive and optimized for all screen sizes. All tools work seamlessly on smartphones, tablets, and desktops across all modern browsers.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I suggest a new tool to be added? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Absolutely! We love community suggestions. Head over to our Contact page and send us your tool idea. We review all suggestions and add popular requests to our roadmap.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <div class="footer__logo">Arc‑multi Tool</div>
+      <p class="footer__desc">100+ free browser-based tools for everyone. No signup, no server uploads, complete privacy — all tools run locally in your browser.</p>
+      <div class="footer__social">
+        <a href="#" title="Twitter">🐦</a>
+        <a href="#" title="GitHub">💻</a>
+        <a href="#" title="LinkedIn">💼</a>
+        <a href="#" title="YouTube">▶️</a>
+      </div>
+    </div>
+    <div class="footer__col">
+      <h4>Tool Categories</h4>
+      <ul>
+        <li><a href="index.html#tools">🧮 Calculator Tools</a></li>
+        <li><a href="index.html#tools">✍️ Text Tools</a></li>
+        <li><a href="index.html#tools">🖼️ Image Tools</a></li>
+        <li><a href="index.html#tools">📄 PDF Tools</a></li>
+        <li><a href="index.html#tools">🎨 Design &amp; CSS</a></li>
+        <li><a href="index.html#tools">🔐 Security Tools</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#tools">All Tools</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+        <li><a href="contact.html">Report a Bug</a></li>
+        <li><a href="contact.html">Suggest a Tool</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <p>© 2025 Arc-Multi Tool. All rights reserved. Built with ❤️ for the web.</p>
+    <p><a href="privacy-policy.html">Privacy</a> · <a href="disclaimer.html">Disclaimer</a> · <a href="contact.html">Contact</a></p>
+  </div>
+</footer>
+
+<button class="scroll-top" title="Back to top">↑</button>
+
+<script src="js/script.js"></script>
+</body>
+</html>
